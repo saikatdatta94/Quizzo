@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Quizzo</string>
+
+    <!--Google web client id-->
+    <string name="google_web_client_id" translatable="false">82779626594-ajofrj552k7tnvlgripph6dpmuuojs2g.apps.googleusercontent.com</string>
+
+
+    <!--LoginPage Assets description-->
+
+    <string name="log_in_button">Log In</string>
+    <string name="facebook_registration">Continue with facebook</string>
+    <string name="google_registration">Continue with google</string>
+    <string name="email_registration">Sign up with email</string>
+    <string name="register_page_image_description">Register Page Image</string>
+    <string name="create_a_profile_text">Create a profile to save your personal curriculum</string>
+    <string name="privacy_policy_text">By signing up you agree to our Terms and Privacy Policy</string>
+</resources>
+
