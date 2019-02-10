@@ -70,10 +70,10 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
                         Toast.makeText(SignInActivity.this, "email:"+authResult.getUser().getEmail(), Toast.LENGTH_LONG).show();
                         Log.i("Login","email:"+authResult.getUser().getEmail());
-//                        Intent intent = new Intent(LoginActivity.this,MainActivity.class); //Creating Intent and Passing Login Creds
-//                        intent.putExtra("email",authResult.getUser().getEmail());
-//                        startActivity(intent);
-//                        finish();
+                        Intent intent = new Intent(SignInActivity.this,MainActivity.class); //Creating Intent and Passing Login Creds
+                        intent.putExtra("email",authResult.getUser().getEmail());
+                        startActivity(intent);
+                        finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override

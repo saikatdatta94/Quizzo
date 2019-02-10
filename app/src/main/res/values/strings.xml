@@ -14,5 +14,13 @@
     <string name="register_page_image_description">Register Page Image</string>
     <string name="create_a_profile_text">Create a profile to save your personal curriculum</string>
     <string name="privacy_policy_text">By signing up you agree to our Terms and Privacy Policy</string>
+    <string name="nav_home_string">Home</string>
+    <string name="nav_challenges_string">Challenges</string>
+    <string name="nav_profile_string">Profile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_home_fragment">Hello home fragment</string>
+    <string name="hello_challenges_fragment">Hello challenges fragment</string>
+    <string name="hello_profile_fragment">Hello profile fragment</string>
 </resources>
 
