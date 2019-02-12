@@ -1,5 +1,6 @@
 package com.example.saikat.quizzo;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,10 +21,23 @@ public class MainActivity extends AppCompatActivity {
     private ChallengesFragment challengesFragment;
     private ProfileFragment profileFragment;
 
+//    User data
+    public String emailId;
+    public String fullName;
+    public String profilePhotoURL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Receive data from LoginActivity
+        if (getIntent()!= null){
+            emailId = getIntent().getStringExtra("email");
+            fullName = getIntent().getStringExtra("userName");
+            profilePhotoURL = getIntent().getStringExtra("profile_photo_URL");
+            Toast.makeText(this, "email: "+emailId+"fullName: "+fullName+ "URL: "+profilePhotoURL, Toast.LENGTH_LONG).show();
+        }
 
         Toolbar toolbar = findViewById(R.id.profile_toolbar);
         setSupportActionBar(toolbar);
@@ -56,9 +71,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (getIntent()!=null){
-
-        }
     }
 
     private void setFragment(Fragment fragment) {
@@ -67,4 +79,5 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.main_frame,fragment);
         fragmentTransaction.commit();
     }
+
 }

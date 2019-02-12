@@ -16,6 +16,7 @@ import android.widget.Toast;
  */
 public class ProfileFragment extends Fragment implements Toolbar.OnMenuItemClickListener{
 
+    public String emailId;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -28,6 +29,7 @@ public class ProfileFragment extends Fragment implements Toolbar.OnMenuItemClick
                              Bundle savedInstanceState) {
 
 //      Adding toolbars,find views by Id and setting are quite different in fragments Code to add toolbar into fragments
+
 
 
         Toolbar toolbar = getActivity().findViewById(R.id.profile_toolbar);

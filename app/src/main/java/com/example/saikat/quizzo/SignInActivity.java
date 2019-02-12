@@ -38,6 +38,12 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     GoogleApiClient mGoogleApiClient;
     private FirebaseAuth firebaseAuth;
 
+//    Google User Details
+    public String email;
+    public String userName;
+    public Uri profilePhotoURL;
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -70,8 +76,16 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
                         Toast.makeText(SignInActivity.this, "email:"+authResult.getUser().getEmail(), Toast.LENGTH_LONG).show();
                         Log.i("Login","email:"+authResult.getUser().getEmail());
+
+                        email = authResult.getUser().getEmail();
+                        userName = authResult.getUser().getDisplayName();
+                        profilePhotoURL = authResult.getUser().getPhotoUrl();
+
+                        //Redirecting user to Main Activity and Passing the user data
                         Intent intent = new Intent(SignInActivity.this,MainActivity.class); //Creating Intent and Passing Login Creds
-                        intent.putExtra("email",authResult.getUser().getEmail());
+                        intent.putExtra("email",email);
+                        intent.putExtra("userName",userName);
+                        intent.putExtra("profile_photo_URL",profilePhotoURL.toString());
                         startActivity(intent);
                         finish();
                     }
