@@ -7,6 +7,10 @@
     tools:context=".MainActivity">
 
 
+    <include
+        android:id="@+id/profile_toolbar"
+        layout="@layout/toolbar"
+        />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_nav"

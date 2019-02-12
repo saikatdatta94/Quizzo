@@ -5,11 +5,37 @@
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
 
+
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_profile_fragment" />
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/profile_toolbar"
+            layout="@layout/toolbar"/>
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_toolbar"
+            android:textAlignment="center"
+            android:layout_marginTop="32dp"
+            android:src="@mipmap/ic_launcher_round"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_image"
+            android:layout_marginTop="32dp"
+            android:textAlignment="center"
+            android:text="email@email.com"/>
+    </RelativeLayout>
+
+
 
 </FrameLayout>

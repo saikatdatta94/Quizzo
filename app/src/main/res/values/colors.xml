@@ -8,6 +8,7 @@
 
     <color name="nav_not_selected">#b1b2be</color>
     <color name="theme_green">#62d76b</color>
+    <color name="colorWhite">#ffffff</color>
 
 
 </resources>
