@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
@@ -21,19 +22,22 @@
         <ImageView
             android:id="@+id/profile_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_below="@+id/profile_toolbar"
-            android:textAlignment="center"
+            android:adjustViewBounds="true"
             android:layout_marginTop="32dp"
             android:src="@mipmap/ic_launcher_round"/>
 
         <TextView
+            android:id="@+id/email_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/profile_image"
-            android:layout_marginTop="32dp"
-            android:textAlignment="center"
-            android:text="email@email.com"/>
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/fibraoneregular"
+            android:textSize="16sp"
+            android:textColor="@color/nav_not_selected"
+            android:textAlignment="center"/>
     </RelativeLayout>
 
 

@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             fullName = getIntent().getStringExtra("userName");
             profilePhotoURL = getIntent().getStringExtra("profile_photo_URL");
             Toast.makeText(this, "email: "+emailId+"fullName: "+fullName+ "URL: "+profilePhotoURL, Toast.LENGTH_LONG).show();
+
         }
 
         Toolbar toolbar = findViewById(R.id.profile_toolbar);
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         challengesFragment = new ChallengesFragment();
         profileFragment = new ProfileFragment();
+
+
 
 
         mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.item_profile:
                         setFragment(profileFragment);
+                        passDataToProfile();
                         return true;
                         default:
                             return false;
@@ -79,5 +83,15 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.main_frame,fragment);
         fragmentTransaction.commit();
     }
+
+    public void passDataToProfile(){
+        Bundle bundleArgument = new Bundle();
+        bundleArgument.putString("name",fullName);
+        bundleArgument.putString("email",emailId);
+        bundleArgument.putString("dpURL",profilePhotoURL);
+
+        profileFragment.setArguments(bundleArgument);
+    }
+
 
 }
