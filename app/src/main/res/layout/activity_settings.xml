@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+
+
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/settings_toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/lightBlueBack">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="88dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fibraoneregular"
+                android:text="Account"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/colorPrimary"/>
+
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider" />
+
+            <include layout="@layout/setting_items"
+                android:id="@+id/upgrade_to_premium"/>
+            <include layout="@layout/setting_items"
+              android:id="@+id/change_pwd"/>
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Switch" />
+
+            <include layout="@layout/setting_items"
+                android:id="@+id/set_goals"/>
+            <include layout="@layout/setting_items"
+                android:id="@+id/log_out"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fibraoneregular"
+                android:text="Share"
+                android:paddingTop="32dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/colorPrimary"/>
+
+            <View
+                android:id="@+id/share_divider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider" />
+
+            <include layout="@layout/setting_items"
+                android:id="@+id/play_store"/>
+
+            <include layout="@layout/setting_items"
+                android:id="@+id/twitter"/>
+
+            <include layout="@layout/setting_items"
+                android:id="@+id/facebook"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fibraoneregular"
+                android:text="Support"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingTop="32dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/colorPrimary"/>
+
+            <View
+                android:id="@+id/support_divider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider" />
+
+            <include layout="@layout/setting_items"
+                android:id="@+id/help"/>
+
+            <include layout="@layout/setting_items"
+                android:id="@+id/suggest_feature"/>
+
+            <include layout="@layout/setting_items"
+                android:id="@+id/feedback"/>
+
+            <include layout="@layout/setting_items"
+                android:id="@+id/terms_conditions"/>
+
+            <include layout="@layout/setting_items"
+                android:id="@+id/privacy_policy"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

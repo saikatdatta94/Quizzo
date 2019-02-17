@@ -81,6 +81,8 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                         userName = authResult.getUser().getDisplayName();
                         profilePhotoURL = authResult.getUser().getPhotoUrl();
 
+
+
                         //Redirecting user to Main Activity and Passing the user data
                         Intent intent = new Intent(SignInActivity.this,MainActivity.class); //Creating Intent and Passing Login Creds
                         intent.putExtra("email",email);
@@ -102,8 +104,22 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
         configureGoogleSignIn();
+
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user!=null){
+            email = user.getEmail();
+            userName = user.getDisplayName();
+            profilePhotoURL = user.getPhotoUrl();
+
+            //Redirecting user to Main Activity and Passing the user data
+            Intent intent = new Intent(SignInActivity.this,MainActivity.class); //Creating Intent and Passing Login Creds
+            intent.putExtra("email",email);
+            intent.putExtra("userName",userName);
+            intent.putExtra("profile_photo_URL",profilePhotoURL.toString());
+            startActivity(intent);
+            finish();
+        }
 
         firebaseAuth = FirebaseAuth.getInstance();
         googleSignInButton = findViewById(R.id.google_sign_in);
@@ -150,4 +166,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(this, ""+connectionResult.getErrorMessage(), Toast.LENGTH_SHORT).show();
     }
+
+
 }

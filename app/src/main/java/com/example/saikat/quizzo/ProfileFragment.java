@@ -2,6 +2,8 @@ package com.example.saikat.quizzo;
 
 
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -91,15 +93,20 @@ public class ProfileFragment extends Fragment implements Toolbar.OnMenuItemClick
         switch (item.getItemId()){
             case R.id.settings:
                 Toast.makeText(this.getContext(), "Settings Clicked", Toast.LENGTH_SHORT).show();
+                Intent settingsIntent = new Intent(getContext(),SettingsActivity.class);
+                settingsIntent.putExtra("Try","Try");
+
+                Bundle bndlanimation =
+                        ActivityOptions.makeCustomAnimation(getContext(), R.anim.animation,R.anim.animation2).toBundle();
+
+                startActivity(settingsIntent,bndlanimation);
                 return true;
 
         }
         return true;
     }
 
-    public void setTextViewText(CharSequence charEmail){
-//        this.charEmail = charEmail;
-    }
+
 
     public void loadProfileImage(){
         ImageRequest imageRequest = new ImageRequest(profileImageURL,
