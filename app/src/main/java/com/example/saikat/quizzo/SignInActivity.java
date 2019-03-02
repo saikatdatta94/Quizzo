@@ -29,9 +29,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
+    public static final String USER_ID = "userId";
+    public static final String EMAIL = "email";
+    public static final String IS_PREMIUM = "isPremium";
     private Button googleSignInButton;
     private static final int PERMISSION_SIGN_IN = 1;
     GoogleSignInClient mGoogleSignInClient;
@@ -42,6 +50,11 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     public String email;
     public String userName;
     public Uri profilePhotoURL;
+    public String userId;
+
+//    FireStore Document ref
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
 
     @Override
@@ -80,7 +93,8 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                         email = authResult.getUser().getEmail();
                         userName = authResult.getUser().getDisplayName();
                         profilePhotoURL = authResult.getUser().getPhotoUrl();
-
+                        userId = authResult.getUser().getUid();
+                        createUser();
 
 
                         //Redirecting user to Main Activity and Passing the user data
@@ -106,11 +120,14 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         setContentView(R.layout.activity_sign_in);
         configureGoogleSignIn();
 
+//        If user is already Logged in redirect them to mainActivity
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!=null){
             email = user.getEmail();
             userName = user.getDisplayName();
             profilePhotoURL = user.getPhotoUrl();
+            userId = user.getUid();
+
 
             //Redirecting user to Main Activity and Passing the user data
             Intent intent = new Intent(SignInActivity.this,MainActivity.class); //Creating Intent and Passing Login Creds
@@ -141,7 +158,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     }
 
 
-    //    Check if already signed in
+
 
 
     private void configureGoogleSignIn(){
@@ -168,4 +185,23 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     }
 
 
+    public void createUser(){
+        Map<String,Object> user = new HashMap<String, Object>();
+        user.put(USER_ID,userId);
+        user.put(EMAIL,email);
+        user.put(IS_PREMIUM,0);
+        db.collection("users").document(userId).set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(SignInActivity.this, "User Added", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w("TAG","Error",e);
+            }
+        });
+
+    }
 }
