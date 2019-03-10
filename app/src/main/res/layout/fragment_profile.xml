@@ -4,7 +4,8 @@
     android:id="@+id/profile_fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    tools:context=".ProfileFragment"
+    android:background="@color/lightBlueBack">
 
 
     <!-- TODO: Update blank fragment layout -->
