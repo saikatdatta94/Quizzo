@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/rounded_button"
+    android:backgroundTint="@color/colorPrimary"
+    >
 
-</android.support.constraint.ConstraintLayout>
+        <View
+            android:id="@+id/category_item_strip"
+            android:layout_width="8dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/strip_layout"
+            android:backgroundTint="@color/colorAccent"
+            />
+
+
+        <TextView
+            android:id="@+id/category_item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/fibraoneregular"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="Science"/>
+
+        <ImageView
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:alpha="0.5"
+            android:src="@drawable/round_settings_white_36dp" />
+
+
+</RelativeLayout>
