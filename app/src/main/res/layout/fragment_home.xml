@@ -54,7 +54,8 @@
                 android:orientation="vertical"
                 android:layout_marginTop="16dp">
 
-                <include layout="@layout/category_item_layout"
+                <include
+                    layout="@layout/category_item_layout"
                     android:id="@+id/category_science"/>
 
                 <include layout="@layout/category_item_layout"

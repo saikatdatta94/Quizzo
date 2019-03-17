@@ -1,6 +1,8 @@
 package com.example.saikat.quizzo;
 
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -92,13 +94,31 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void populateCategoriesList(View categoryView,ColorStateList color,String categoryName) {
+    private void populateCategoriesList(View categoryView, ColorStateList color, final String categoryName) {
 //        Grabbing StripView of type View
         View stripView = categoryView.findViewById(R.id.category_item_strip);
         stripView.setBackgroundTintList(color);
 
         TextView categoryTextView = categoryView.findViewById(R.id.category_item_text);
         categoryTextView.setText(categoryName);
+
+        categoryView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Redirecting user to Main Activity and Passing the user data
+                Intent categoryListIntent = new Intent(getActivity(),CategoryListActivity.class); //Creating Intent and Passing Login Creds
+                categoryListIntent.putExtra("categoryName",categoryName);
+//                intent.putExtra("userName",userName);
+//                intent.putExtra("profile_photo_URL",profilePhotoURL.toString());
+                Bundle bndlanimation =
+                        ActivityOptions.makeCustomAnimation(getContext(), R.anim.animation,R.anim.animation2).toBundle();
+
+                startActivity(categoryListIntent,bndlanimation);
+//                finish();
+                Log.i("Msg","I was clicked");
+            }
+        });
 
 
     }
