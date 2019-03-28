@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private ChallengesFragment challengesFragment;
     private ProfileFragment profileFragment;
 
-//    User data
+    //    User data
     public String emailId;
     public String fullName;
     public String profilePhotoURL;
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //Receive data from LoginActivity
         if (getIntent()!= null){
@@ -51,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
         challengesFragment = new ChallengesFragment();
         profileFragment = new ProfileFragment();
 
-
+//        Setting HomeFragment as default
+        setFragment(homeFragment);
 
 
         mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -69,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
                         setFragment(profileFragment);
                         passDataToProfile();
                         return true;
-                        default:
-                            return false;
+                    default:
+                        return false;
                 }
             }
         });

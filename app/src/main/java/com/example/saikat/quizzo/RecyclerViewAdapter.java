@@ -12,38 +12,81 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>{
+public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    //TODO: delete if doesn't work
+    private static final int TYPE_ONE = 1;
+    private static final int TYPE_TWO = 2;
 
-
-    private ArrayList<String> imageURL = new ArrayList<>();
-    private ArrayList<String> head = new ArrayList<>();
-    private ArrayList<String> descriptionText = new ArrayList<>();
+    //    private ArrayList<String> imageURL = new ArrayList<>();
+//    private ArrayList<String> head = new ArrayList<>();
+//    private ArrayList<String> descriptionText = new ArrayList<>();
+    private ArrayList<ListItem> listViewItemArray;
     private Context mContext;
 
-    public RecyclerViewAdapter( Context mContext,ArrayList<String> imageURL, ArrayList<String> head, ArrayList<String> descriptionText) {
-        this.imageURL = imageURL;
-        this.head = head;
-        this.descriptionText = descriptionText;
+    public RecyclerViewAdapter( Context mContext,ArrayList<ListItem> listViewItemArray) {
+        this.listViewItemArray = listViewItemArray;
         this.mContext = mContext;
+    }
+
+//    Determine which layout to use
+
+
+    @Override
+    public int getItemViewType(int position) {
+
+        ListItem item = listViewItemArray.get(position);
+        if (item.getType()== ListItem.ListType.ONE){
+            return TYPE_ONE;
+        }else if (item.getType()== ListItem.ListType.TWO){
+            return TYPE_TWO;
+        }
+        return -1;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.horizontal_list_item,parent,false);
-        return new MyViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        if (viewType == TYPE_ONE){
+            View view = LayoutInflater.from(mContext).inflate(R.layout.horizontal_list_item,parent,false);
+            return new MyViewHolder(view);
+        }else if (viewType == TYPE_TWO){
+            View view = LayoutInflater.from(mContext).inflate(R.layout.category_vertical_list_item_layout,parent,false);
+            return new MyViewHolderNew(view);
+        }else {
+//            TODO: Show a toast containing Error info
+            throw new RuntimeException("The type has to be ONE or TWO");
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.descriptionTextView.setText(descriptionText.get(position));
-        holder.headingTextView.setText(head.get(position));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        switch (holder.getItemViewType()){
+            case TYPE_ONE:
+                initLayoutOne((MyViewHolder)holder,position);
+                break;
+            case TYPE_TWO:
+                initLayoutTwo((MyViewHolderNew)holder,position);
+                break;
+            default:
+                break;
+        }
+    }
 
+    private void initLayoutTwo(MyViewHolderNew holder, int position) {
+        holder.headingForVerticalList.setText(listViewItemArray.get(position).getHeading());
+        holder.descriptionForVerticalList.setText(listViewItemArray.get(position).getDescriptionText());
+    }
+
+    private void initLayoutOne(MyViewHolder holder, int position) {
+        holder.headingTextView.setText(listViewItemArray.get(position).getHeading());
+        holder.descriptionTextView.setText(listViewItemArray.get(position).getDescriptionText());
     }
 
     @Override
     public int getItemCount() {
-        return head.size();
+        return listViewItemArray.size();
     }
 
 
@@ -62,4 +105,23 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapt
             descriptionTextView = itemView.findViewById(R.id.description);
         }
     }
+
+    public class MyViewHolderNew extends RecyclerView.ViewHolder{
+
+        ImageView thumbnailForVerticalList;
+        TextView headingForVerticalList;
+        TextView descriptionForVerticalList;
+
+        public MyViewHolderNew(View itemViewForVerticalList) {
+            super(itemViewForVerticalList);
+
+            thumbnailForVerticalList = itemViewForVerticalList.findViewById(R.id.image_category_vertical_list);
+            headingForVerticalList = itemViewForVerticalList.findViewById(R.id.heading_category_vertical_list);
+            descriptionForVerticalList= itemViewForVerticalList.findViewById(R.id.description_category_vertical_list);
+        }
+    }
+
+
+
+
 }

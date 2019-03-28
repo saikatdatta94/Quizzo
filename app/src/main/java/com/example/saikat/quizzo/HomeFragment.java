@@ -24,14 +24,19 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
 
-    private ArrayList<String> imageURL = new ArrayList<>();
-    private ArrayList<String> head = new ArrayList<>();
-    private ArrayList<String> descriptionText = new ArrayList<>();
+    //    TODO: Make this a single object
+    private ArrayList<ListItem> listViewItems = new ArrayList<ListItem>();
+    //    TODO: Make this a single object
+
+
     View view;
+
+    //  Horizontal RecycleView
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     RecyclerViewAdapter adapter;
 
+    //  Initialise Categories
     View categoryScience;
     View category2;
     View category3;
@@ -51,6 +56,7 @@ public class HomeFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_home,container,false);
 
+//        Declare Categories
         categoryScience = view.findViewById(R.id.category_science);
         category2 = view.findViewById(R.id.cat2);
         category3 = view.findViewById(R.id.cat3);
@@ -69,7 +75,7 @@ public class HomeFragment extends Fragment {
                 getActivity().getResources().getColorStateList(R.color.tooLightViolet),
                 getActivity().getResources().getColorStateList(R.color.lightViolet)
         };
-        
+
 
 
 //        Create category Item list view
@@ -77,20 +83,10 @@ public class HomeFragment extends Fragment {
             populateCategoriesList(categoryViewList[i],categoryTintList[i],categoryName[i]);
         }
 
-        
-
-
-
         Toolbar toolbar = view.findViewById(R.id.profile_toolbar);
         toolbar.getMenu().clear();
         addList();
 
-
-        for (int i = 0; i < head.size() ; i++) {
-            Log.i("Head",head.get(i));
-        }
-
-        
         return view;
     }
 
@@ -127,29 +123,32 @@ public class HomeFragment extends Fragment {
     private void addList() {
 //        Todo: Or basically we don't need to add data because we will be receiving Object from the
 //        Todo:  So populate a list of objects with the data received from the database
-        head.add("Lorem Ip1");
-        descriptionText.add("hjshdjsd");
-        imageURL.add("jhdjhs");
-
-        head.add("Lorem Ip2");
-        descriptionText.add("hjssdhdjsd");
-        imageURL.add("jhdjhs");
-
-        head.add("Lorem Ip1");
-        descriptionText.add("hjshdjsd");
-        imageURL.add("jhdjhs");
-
-        head.add("Lorem Ip2");
-        descriptionText.add("hjssdhdjsd");
-        imageURL.add("jhdjhs");
-
-        head.add("Lorem Ip1");
-        descriptionText.add("hjshdjsd");
-        imageURL.add("jhdjhs");
-
-        head.add("Lorem Ip2");
-        descriptionText.add("hjssdhdjsd");
-        imageURL.add("jhdjhs");
+        for (int i = 0; i <10 ; i++) {
+            listViewItems.add(new ListItem(ListItem.ListType.ONE,"",""+i,""+i));
+        }
+//        head.add("Lorem Ip1");
+//        descriptionText.add("hjshdjsd");
+//        imageURL.add("jhdjhs");
+//
+//        head.add("Lorem Ip2");
+//        descriptionText.add("hjssdhdjsd");
+//        imageURL.add("jhdjhs");
+//
+//        head.add("Lorem Ip1");
+//        descriptionText.add("hjshdjsd");
+//        imageURL.add("jhdjhs");
+//
+//        head.add("Lorem Ip2");
+//        descriptionText.add("hjssdhdjsd");
+//        imageURL.add("jhdjhs");
+//
+//        head.add("Lorem Ip1");
+//        descriptionText.add("hjshdjsd");
+//        imageURL.add("jhdjhs");
+//
+//        head.add("Lorem Ip2");
+//        descriptionText.add("hjssdhdjsd");
+//        imageURL.add("jhdjhs");
 
         // Calling initRecyclerView Method for Show Horizontal recycler view
         initRecyclerView();
@@ -163,7 +162,7 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.home_horizontal_recyclerView);
         layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerViewAdapter(getActivity(),imageURL,head,descriptionText);
+        adapter = new RecyclerViewAdapter(getActivity(),listViewItems);
         recyclerView.setAdapter(adapter);
     }
 

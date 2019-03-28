@@ -10,4 +10,13 @@
         layout="@layout/toolbar"
         android:id="@+id/category_list_toolbar"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/category_vertical_list"
+        android:layout_below="@+id/category_list_toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+    </android.support.v7.widget.RecyclerView>
+
 </RelativeLayout>
