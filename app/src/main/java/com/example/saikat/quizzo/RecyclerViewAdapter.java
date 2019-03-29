@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.github.siyamed.shapeimageview.mask.PorterShapeImageView;
+
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
@@ -93,6 +96,7 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerView.View
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
+
         ImageView thumbnailImageView;
         TextView headingTextView;
         TextView descriptionTextView;
@@ -100,24 +104,30 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerView.View
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            thumbnailImageView = itemView.findViewById(R.id.thumbnail);
+//            thumbnailImageView = itemView.findViewById(R.id.thumbnail);
+
             headingTextView = itemView.findViewById(R.id.heading);
             descriptionTextView = itemView.findViewById(R.id.description);
         }
     }
 
     public class MyViewHolderNew extends RecyclerView.ViewHolder{
-
-        ImageView thumbnailForVerticalList;
+//        RoundedImageView riv;
+        PorterShapeImageView thumbnailForVerticalList;
+//        ImageView thumbnailForVerticalList;
         TextView headingForVerticalList;
         TextView descriptionForVerticalList;
 
+
         public MyViewHolderNew(View itemViewForVerticalList) {
             super(itemViewForVerticalList);
+//            riv = itemView.findViewById(R.id.image_category_vertical_list);
 
             thumbnailForVerticalList = itemViewForVerticalList.findViewById(R.id.image_category_vertical_list);
             headingForVerticalList = itemViewForVerticalList.findViewById(R.id.heading_category_vertical_list);
             descriptionForVerticalList= itemViewForVerticalList.findViewById(R.id.description_category_vertical_list);
+
+            thumbnailForVerticalList.setImageResource(R.drawable.thumb);
         }
     }
 

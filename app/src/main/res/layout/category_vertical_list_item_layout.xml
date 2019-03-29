@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/lightBlueBack"
     android:layout_width="match_parent"
     android:layout_height="130dp">
 
-    <ImageView
+    <!--https://github.com/siyamed/android-shape-imageview-->
+    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
         android:id="@+id/image_category_vertical_list"
         android:layout_width="160dp"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:scaleType="fitCenter" />
+        app:siShape="@drawable/shape_rounded_rectangle"
+        app:siSquare="false"/>
 
 
     <TextView
@@ -42,5 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider" />
+
+
 
 </RelativeLayout>
