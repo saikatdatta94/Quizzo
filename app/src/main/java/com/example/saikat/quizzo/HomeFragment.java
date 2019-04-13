@@ -5,6 +5,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -24,9 +34,11 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
 
+    private static final String TAG = "HomeFragment";
     //    TODO: Make this a single object
     private ArrayList<ListItem> listViewItems = new ArrayList<ListItem>();
     //    TODO: Make this a single object
+
 
 
 
@@ -103,6 +115,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+
                 //Redirecting user to Main Activity and Passing the user data
                 Intent categoryListIntent = new Intent(getActivity(),CategoryListActivity.class); //Creating Intent and Passing Login Creds
                 categoryListIntent.putExtra("categoryName",categoryName);
@@ -119,6 +132,9 @@ public class HomeFragment extends Fragment {
 
 
     }
+
+
+
 
 
     private void addList() {

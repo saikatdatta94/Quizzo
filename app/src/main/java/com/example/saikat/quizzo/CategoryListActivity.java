@@ -1,17 +1,32 @@
 package com.example.saikat.quizzo;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class CategoryListActivity extends AppCompatActivity {
 
+
+    private static final String TAG = "CategotyList";
+    private String[] categoryListDetailsDestination = {"space"};
     private String activityHeading;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private DocumentReference categoriesRef = db.document("/categories/science/space/detail");
 
     //    TODO: Make this a single object
     private ArrayList<ListItem> listViewItems = new ArrayList<ListItem>();
@@ -41,6 +56,8 @@ public class CategoryListActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(activityHeading);
 //        toolbar.setTitle("Category List");
 
+        //  TODO:  Test
+        loadCategory();
         addList();
     }
 
@@ -71,7 +88,11 @@ public class CategoryListActivity extends AppCompatActivity {
 //        Todo:  So populate a list of objects with the data received from the database
 
 
-        for (int i = 0; i <10 ; i++) {
+
+        String head = "";
+        String description ="";
+        for (int i = 0; i <categoryListDetailsDestination.length ; i++) {
+
             listViewItems.add(new ListItem(ListItem.ListType.TWO,"",""+i,""+i));
         }
 
@@ -101,6 +122,29 @@ public class CategoryListActivity extends AppCompatActivity {
 
         // Calling initRecyclerView Method for Show Horizontal recycler view
         initRecyclerView();
+
+    }
+
+    //  TODO:  Test
+    private void loadCategory() {
+        Log.i(TAG,"I was Loaded");
+        categoriesRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                       if (documentSnapshot.exists()){
+                           Log.i(TAG,"Doc: " + documentSnapshot.get("description") );
+                       }else {
+                           Log.d(TAG, "No such document");
+                       }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "Failure");
+                    }
+                });
 
     }
 
