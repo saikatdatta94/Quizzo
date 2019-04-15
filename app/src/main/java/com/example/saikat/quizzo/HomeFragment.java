@@ -158,7 +158,7 @@ public class HomeFragment extends Fragment {
 //            listViewItems.add(new ListItem(ListItem.ListType.ONE,"",""+i,""+i,"Science"));
 //        }
 
-        
+
 //        head.add("Lorem Ip1");
 //        descriptionText.add("hjshdjsd");
 //        imageURL.add("jhdjhs");
