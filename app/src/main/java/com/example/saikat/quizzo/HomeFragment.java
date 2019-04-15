@@ -40,6 +40,8 @@ public class HomeFragment extends Fragment {
     //    TODO: Make this a single object
 
 
+//    It'll contain category list fetched from database
+    private ArrayList<ListItem> categoryItemList;
 
 
     View view;
@@ -100,6 +102,10 @@ public class HomeFragment extends Fragment {
         toolbar.getMenu().clear();
         addList();
 
+
+
+
+
         return view;
     }
 
@@ -138,11 +144,21 @@ public class HomeFragment extends Fragment {
 
 
     private void addList() {
+
+//TODO: enable
+        CategoryItemDbHelper dbHelper = new CategoryItemDbHelper(this.getActivity());
+        listViewItems = dbHelper.getAllCategoryItems();
+//TODO: enable
+
 //        Todo: Or basically we don't need to add data because we will be receiving Object from the
 //        Todo:  So populate a list of objects with the data received from the database
-        for (int i = 0; i <10 ; i++) {
-            listViewItems.add(new ListItem(ListItem.ListType.ONE,"",""+i,""+i));
-        }
+
+
+//        for (int i = 0; i <10 ; i++) {
+//            listViewItems.add(new ListItem(ListItem.ListType.ONE,"",""+i,""+i,"Science"));
+//        }
+
+        
 //        head.add("Lorem Ip1");
 //        descriptionText.add("hjshdjsd");
 //        imageURL.add("jhdjhs");

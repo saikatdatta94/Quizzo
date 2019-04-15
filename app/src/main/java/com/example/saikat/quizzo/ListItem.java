@@ -11,20 +11,22 @@ public class ListItem {
     private String imageURL;
     private String heading;
     private String descriptionText;
+    private String parentCategory;
 
-    public ListType getType() {
-        return type;
+
+
+    public ListItem(){
+
     }
 
-    public void setType(ListType type) {
-        this.type = type;
-    }
 
-    public ListItem(ListType type, String imageURL, String heading, String descriptionText) {
+
+    public ListItem(ListType type, String imageURL, String heading, String descriptionText, String parentCategory) {
         this.imageURL = imageURL;
         this.heading = heading;
         this.descriptionText = descriptionText;
         this.type = type;
+        this.parentCategory = parentCategory;
     }
 
     public String getImageURL() {
@@ -49,5 +51,21 @@ public class ListItem {
 
     public void setDescriptionText(String descriptionText) {
         this.descriptionText = descriptionText;
+    }
+
+    public String getParentCategory() {
+        return parentCategory;
+    }
+
+    public void setParentCategory(String parentCategory) {
+        this.parentCategory = parentCategory;
+    }
+
+    public ListType getType() {
+        return type;
+    }
+
+    public void setType(ListType type) {
+        this.type = type;
     }
 }

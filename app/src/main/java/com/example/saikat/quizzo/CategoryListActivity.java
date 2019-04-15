@@ -23,7 +23,7 @@ public class CategoryListActivity extends AppCompatActivity {
 
 
     private static final String TAG = "CategotyList";
-    private String[] categoryListDetailsDestination = {"space"};
+    private String[] categoryListDetailsDestination = {"space","Earth"};
     private String activityHeading;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference categoriesRef = db.document("/categories/science/space/detail");
@@ -93,7 +93,8 @@ public class CategoryListActivity extends AppCompatActivity {
         String description ="";
         for (int i = 0; i <categoryListDetailsDestination.length ; i++) {
 
-            listViewItems.add(new ListItem(ListItem.ListType.TWO,"",""+i,""+i));
+            listViewItems.add(new ListItem(ListItem.ListType.TWO,"",""+i,
+                    ""+i,"Science"));
         }
 
 //        head.add("Lorem Ip1");
