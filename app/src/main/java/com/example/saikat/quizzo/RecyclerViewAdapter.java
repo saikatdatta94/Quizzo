@@ -1,6 +1,7 @@
 package com.example.saikat.quizzo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -64,7 +65,7 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()){
             case TYPE_ONE:
                 initLayoutOne((MyViewHolder)holder,position);
@@ -75,6 +76,21 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerView.View
             default:
                 break;
         }
+
+
+        final ListItem subCategory = listViewItemArray.get(position);
+//        Redirecting to new activity from RecyclerView
+//      TODO:  This operation is costly follow Minch and refactor this code later
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent beforeQuizPlayActivity = new Intent(view.getContext(),QuestionActivity.class);
+                beforeQuizPlayActivity.putExtra("heading",subCategory.getHeading());
+                beforeQuizPlayActivity.putExtra("description",subCategory.getDescriptionText());
+                mContext.startActivity(beforeQuizPlayActivity);
+            }
+        });
+
     }
 
     private void initLayoutTwo(MyViewHolderNew holder, int position) {

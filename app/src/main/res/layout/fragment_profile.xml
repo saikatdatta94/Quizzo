@@ -80,6 +80,164 @@
             android:layout_below="@id/set_goal"
             android:layout_marginTop="8dp"
             android:background="?android:attr/listDivider" />
+
+        <RelativeLayout
+            android:id="@+id/streak_text"
+            android:layout_below="@id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp">
+            <TextView
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/inactiveGrey"
+                android:fontFamily="@font/fibraoneregular"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginStart="32dp"
+                android:text="STREAK"/>
+
+            <TextView
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/radiantCyan"
+                android:fontFamily="@font/fibraoneregular"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginEnd="32dp"
+                android:text="0 DAYS"/>
+
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/day_streak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/streak_text"
+            android:layout_marginTop="4dp"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/day1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ring"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="S"
+                android:textStyle="bold"
+                android:textColor="@color/lightBlueInactive"
+                android:layout_margin="4dp"/>
+            <TextView
+                android:id="@+id/day2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ring"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="S"
+                android:textStyle="bold"
+                android:textColor="@color/lightBlueInactive"
+                android:layout_margin="4dp"/>
+            <TextView
+                android:id="@+id/day3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ring"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="S"
+                android:textStyle="bold"
+                android:textColor="@color/lightBlueInactive"
+                android:layout_margin="4dp"/>
+            <TextView
+                android:id="@+id/day4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ring"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="S"
+                android:textStyle="bold"
+                android:textColor="@color/lightBlueInactive"
+                android:layout_margin="4dp"/>
+            <TextView
+                android:id="@+id/day5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ring"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="S"
+                android:textStyle="bold"
+                android:textColor="@color/lightBlueInactive"
+                android:layout_margin="4dp"/>
+            <TextView
+                android:id="@+id/day6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ring"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="S"
+                android:textStyle="bold"
+                android:textColor="@color/lightBlueInactive"
+                android:layout_margin="4dp"/>
+            <TextView
+                android:id="@+id/day7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ring"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="S"
+                android:textStyle="bold"
+                android:textColor="@color/lightBlueInactive"
+                android:layout_margin="4dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/achievement_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/day_streak"
+            android:fontFamily="@font/fibraoneregular"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/colorPrimary"
+            android:text="Achievements"/>
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/achievement_head"
+            android:layout_marginTop="8dp"
+            android:background="?android:attr/listDivider" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </TableLayout>
+
+
     </RelativeLayout>
 
 

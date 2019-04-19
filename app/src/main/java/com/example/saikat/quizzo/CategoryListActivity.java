@@ -97,29 +97,7 @@ public class CategoryListActivity extends AppCompatActivity {
                     ""+i,"Science"));
         }
 
-//        head.add("Lorem Ip1");
-//        descriptionText.add("hjshdjsd");
-//        imageURL.add("jhdjhs");
-//
-//        head.add("Lorem Ip2");
-//        descriptionText.add("hjssdhdjsd");
-//        imageURL.add("jhdjhs");
-//
-//        head.add("Lorem Ip1");
-//        descriptionText.add("hjshdjsd");
-//        imageURL.add("jhdjhs");
-//
-//        head.add("Lorem Ip2");
-//        descriptionText.add("hjssdhdjsd");
-//        imageURL.add("jhdjhs");
-//
-//        head.add("Lorem Ip1");
-//        descriptionText.add("hjshdjsd");
-//        imageURL.add("jhdjhs");
-//
-//        head.add("Lorem Ip2");
-//        descriptionText.add("hjssdhdjsd");
-//        imageURL.add("jhdjhs");
+
 
         // Calling initRecyclerView Method for Show Horizontal recycler view
         initRecyclerView();

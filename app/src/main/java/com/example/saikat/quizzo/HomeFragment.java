@@ -5,7 +5,6 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,15 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -146,7 +136,7 @@ public class HomeFragment extends Fragment {
     private void addList() {
 
 //TODO: enable
-        CategoryItemDbHelper dbHelper = new CategoryItemDbHelper(this.getActivity());
+        QuizDbHelper dbHelper = new QuizDbHelper(this.getActivity());
         listViewItems = dbHelper.getAllCategoryItems();
 //TODO: enable
 
@@ -154,34 +144,7 @@ public class HomeFragment extends Fragment {
 //        Todo:  So populate a list of objects with the data received from the database
 
 
-//        for (int i = 0; i <10 ; i++) {
-//            listViewItems.add(new ListItem(ListItem.ListType.ONE,"",""+i,""+i,"Science"));
-//        }
 
-
-//        head.add("Lorem Ip1");
-//        descriptionText.add("hjshdjsd");
-//        imageURL.add("jhdjhs");
-//
-//        head.add("Lorem Ip2");
-//        descriptionText.add("hjssdhdjsd");
-//        imageURL.add("jhdjhs");
-//
-//        head.add("Lorem Ip1");
-//        descriptionText.add("hjshdjsd");
-//        imageURL.add("jhdjhs");
-//
-//        head.add("Lorem Ip2");
-//        descriptionText.add("hjssdhdjsd");
-//        imageURL.add("jhdjhs");
-//
-//        head.add("Lorem Ip1");
-//        descriptionText.add("hjshdjsd");
-//        imageURL.add("jhdjhs");
-//
-//        head.add("Lorem Ip2");
-//        descriptionText.add("hjssdhdjsd");
-//        imageURL.add("jhdjhs");
 
         // Calling initRecyclerView Method for Show Horizontal recycler view
         initRecyclerView();

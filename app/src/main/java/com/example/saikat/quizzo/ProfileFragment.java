@@ -26,6 +26,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +47,7 @@ public class ProfileFragment extends Fragment implements Toolbar.OnMenuItemClick
     public String profileImageURL;
     public TextView emailText;
     public ImageView profileImageView;
+    public TextView[] dayViews = new TextView[7];
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -55,6 +60,13 @@ public class ProfileFragment extends Fragment implements Toolbar.OnMenuItemClick
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile,container,false);//Setting up view for getting View elements from Fragments
+//        Setup Streak
+        dayStreakConfiguration(view);
+
+
+
+
+
 
         profileImageView = view.findViewById(R.id.profile_image);
 
@@ -127,6 +139,32 @@ public class ProfileFragment extends Fragment implements Toolbar.OnMenuItemClick
                 });
         MySingleton.getInstance(getActivity()).addToRequestQueue(imageRequest);
 
+
+
+    }
+
+    public void dayStreakConfiguration(View v){
+
+        String[] days = {"S","M","T","W","T","F","S"};
+
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        int today = gregorianCalendar.get(Calendar.DAY_OF_WEEK) - 1;
+        System.out.println(today);
+//        TODO(!) NOTE: SUN = 1 ,SAT =7 so -1 to map it so that it starts from 0
+
+
+        for (int i = 1; i <= 7; i++) {
+
+            String textViewId = "day"+i;
+            int resId = getResources().getIdentifier(textViewId,"id","com.example.saikat.quizzo");
+            dayViews[i-1] = v.findViewById(resId);
+            dayViews[i-1].setText(days[today%(days.length-1)]);
+            if (today<6){
+                today++;
+            }else {
+                today = 0;
+            }
+        }
 
 
     }

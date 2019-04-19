@@ -7,18 +7,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
-import com.example.saikat.quizzo.CategoryItemContract.*;
+import com.example.saikat.quizzo.QuizContract.*;
 
 import java.util.ArrayList;
 
-public class CategoryItemDbHelper extends SQLiteOpenHelper {
+public class QuizDbHelper extends SQLiteOpenHelper {
 
     private  static final String DATABASE_NAME = "Quizzo.db";
     private  static final int DATABASE_VERSION = 1;
 
     private SQLiteDatabase db;
 
-    public CategoryItemDbHelper(@Nullable Context context) {
+    public QuizDbHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
