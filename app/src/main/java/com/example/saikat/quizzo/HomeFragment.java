@@ -5,6 +5,8 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +16,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -24,22 +38,28 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
 
+
+    private FirebaseFirestore db;
+    private CollectionReference notebookRef;
+    private HorizontalCategoryListAdapter horizontalCategoryListAdapter;
+
     private static final String TAG = "HomeFragment";
     //    TODO: Make this a single object
-    private ArrayList<ListItem> listViewItems = new ArrayList<ListItem>();
     //    TODO: Make this a single object
 
 
 //    It'll contain category list fetched from database
-    private ArrayList<ListItem> categoryItemList;
+
 
 
     View view;
+    private RecyclerView recommendedRecyclerView;
+    private FirestoreRecyclerOptions<Note> options;
 
     //  Horizontal RecycleView
-    RecyclerView recyclerView;
-    LinearLayoutManager layoutManager;
-    RecyclerViewAdapter adapter;
+//    RecyclerView recyclerView;
+//    LinearLayoutManager layoutManager;
+//    RecyclerViewAdapter adapter;
 
     //  Initialise Categories
     View categoryScience;
@@ -90,14 +110,55 @@ public class HomeFragment extends Fragment {
 
         Toolbar toolbar = view.findViewById(R.id.profile_toolbar);
         toolbar.getMenu().clear();
-        addList();
 
 
 
+//    TODO************************  Code for recommended categories
+        recommendedRecyclerView = view.findViewById(R.id.home_horizontal_recyclerView);
+        horizontalCategoryListAdapter = new HorizontalCategoryListAdapter(options);
+        recommendedRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        recommendedRecyclerView.setAdapter(horizontalCategoryListAdapter);
 
 
         return view;
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+//     TODO **********************   This code must be kept inside onCreate method because lifecycle od onCreate is started earlier than onViewCreated
+        db = FirebaseFirestore.getInstance();
+        notebookRef   = db.collection("Notebook");//Change the collection path to desired collection later
+        Query query = notebookRef.orderBy("priority", Query.Direction.DESCENDING);// Sorted according to priority
+        options = new FirestoreRecyclerOptions.Builder<Note>()
+                .setQuery(query, Note.class)
+                .build();
+
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        horizontalCategoryListAdapter.startListening();
+        Log.i(TAG,"Started Listening");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        horizontalCategoryListAdapter.stopListening();
+        Log.i(TAG,"Stopped Listening");
+    }
+
+
+
+
+
+
+//    TODO This is categoryList containing the strip view
 
     private void populateCategoriesList(View categoryView, ColorStateList color, final String categoryName) {
 //        Grabbing StripView of type View
@@ -133,34 +194,9 @@ public class HomeFragment extends Fragment {
 
 
 
-    private void addList() {
-
-//TODO: enable
-        QuizDbHelper dbHelper = new QuizDbHelper(this.getActivity());
-        listViewItems = dbHelper.getAllCategoryItems();
-//TODO: enable
-
-//        Todo: Or basically we don't need to add data because we will be receiving Object from the
-//        Todo:  So populate a list of objects with the data received from the database
 
 
 
-
-        // Calling initRecyclerView Method for Show Horizontal recycler view
-        initRecyclerView();
-
-    }
-
-
-//    Initialized Horizontal recycler view for Recommended section
-
-    private void initRecyclerView() {
-        recyclerView = view.findViewById(R.id.home_horizontal_recyclerView);
-        layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerViewAdapter(getActivity(),listViewItems);
-        recyclerView.setAdapter(adapter);
-    }
 
 
 }

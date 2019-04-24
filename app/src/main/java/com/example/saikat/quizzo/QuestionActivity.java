@@ -32,8 +32,8 @@ public class QuestionActivity extends AppCompatActivity {
 
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.TYPE_STATUS_BAR);
 
-        String heading = getIntent().getStringExtra("heading");
-        String description = getIntent().getStringExtra("description");
+//        String heading = getIntent().getStringExtra("heading");
+//        String description = getIntent().getStringExtra("description");
 
 //        TextView headingText = findViewById(R.id.head);
 //        TextView descriptionText = findViewById(R.id.descri);

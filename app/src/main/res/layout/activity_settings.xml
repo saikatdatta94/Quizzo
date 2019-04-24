@@ -120,7 +120,7 @@
                 android:id="@+id/privacy_policy"/>
 
 
-            <include layout="@layout/category_item_layout"
+            <include layout="@layout/category_strip_item_layout"
                 android:id="@+id/privacy_policy"/>
 
         </LinearLayout>

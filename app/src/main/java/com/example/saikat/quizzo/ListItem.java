@@ -2,16 +2,13 @@ package com.example.saikat.quizzo;
 
 public class ListItem {
 
-    public enum ListType{
-        ONE,TWO;
-    }
 
 
-    private ListType type;
-    private String imageURL;
+//    private String imageURL;
     private String heading;
     private String descriptionText;
-    private String parentCategory;
+//    private String parentCategory;
+    private int priority;
 
 
 
@@ -21,21 +18,20 @@ public class ListItem {
 
 
 
-    public ListItem(ListType type, String imageURL, String heading, String descriptionText, String parentCategory) {
-        this.imageURL = imageURL;
+
+    public ListItem(String heading, String descriptionText, int priority) {
         this.heading = heading;
         this.descriptionText = descriptionText;
-        this.type = type;
-        this.parentCategory = parentCategory;
+        this.priority = priority;
     }
 
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
+//    public String getImageURL() {
+//        return imageURL;
+//    }
+//
+//    public void setImageURL(String imageURL) {
+//        this.imageURL = imageURL;
+//    }
 
     public String getHeading() {
         return heading;
@@ -53,19 +49,27 @@ public class ListItem {
         this.descriptionText = descriptionText;
     }
 
-    public String getParentCategory() {
-        return parentCategory;
+    public int getPriority() {
+        return priority;
     }
 
-    public void setParentCategory(String parentCategory) {
-        this.parentCategory = parentCategory;
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
-    public ListType getType() {
-        return type;
-    }
+//    public String getParentCategory() {
+//        return parentCategory;
+//    }
+//
+//    public void setParentCategory(String parentCategory) {
+//        this.parentCategory = parentCategory;
+//    }
 
-    public void setType(ListType type) {
-        this.type = type;
-    }
+//    public ListType getType() {
+//        return type;
+//    }
+//
+//    public void setType(ListType type) {
+//        this.type = type;
+//    }
 }

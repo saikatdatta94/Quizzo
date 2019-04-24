@@ -12,7 +12,14 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 public class MainActivity extends AppCompatActivity {
+
 
     private BottomNavigationView mMainNav;
     private FrameLayout mMainFrame;
@@ -77,7 +84,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
+
+
 
     private void setFragment(Fragment fragment) {
 

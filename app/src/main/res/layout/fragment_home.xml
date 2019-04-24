@@ -25,9 +25,23 @@
                 android:layout_height="match_parent"
                 android:text="@string/hello_home_fragment" />
 
+            <TextView
+                android:id="@+id/continue_learning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:layout_marginLeft="8dp"
+                android:fontFamily="@font/fibraoneregular"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@+id/text"
+                android:text="Followed Topics"/>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/home_horizontal_recyclerView"
-                android:layout_below="@+id/text"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/continue_learning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -55,19 +69,19 @@
                 android:layout_marginTop="16dp">
 
                 <include
-                    layout="@layout/category_item_layout"
+                    layout="@layout/category_strip_item_layout"
                     android:id="@+id/category_science"/>
 
-                <include layout="@layout/category_item_layout"
+                <include layout="@layout/category_strip_item_layout"
                     android:id="@+id/cat2"/>
 
-                <include layout="@layout/category_item_layout"
+                <include layout="@layout/category_strip_item_layout"
                     android:id="@+id/cat3"/>
 
-                <include layout="@layout/category_item_layout"
+                <include layout="@layout/category_strip_item_layout"
                     android:id="@+id/cat4"/>
 
-                <include layout="@layout/category_item_layout"
+                <include layout="@layout/category_strip_item_layout"
                     android:id="@+id/cat5"/>
 
             </LinearLayout>
