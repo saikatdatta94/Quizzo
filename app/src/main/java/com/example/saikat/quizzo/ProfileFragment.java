@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -48,6 +49,8 @@ public class ProfileFragment extends Fragment implements Toolbar.OnMenuItemClick
     public TextView emailText;
     public ImageView profileImageView;
     public TextView[] dayViews = new TextView[7];
+
+
 
     public ProfileFragment() {
         // Required empty public constructor

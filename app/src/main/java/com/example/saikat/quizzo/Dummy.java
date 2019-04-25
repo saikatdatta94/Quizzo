@@ -15,7 +15,7 @@ public class Dummy extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference notebookRef = db.collection("Notebook");
 //
-    private HorizontalCategoryListAdapter adapter;
+    private VerticalCategoryListAdapter adapter;
 
 
 
@@ -37,15 +37,15 @@ public class Dummy extends AppCompatActivity {
     private void setUpRecyclerView() {
         Query query = notebookRef.orderBy("priority", Query.Direction.DESCENDING);
 
-        FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
-                .setQuery(query, Note.class)
+        FirestoreRecyclerOptions<FollowingCategoryItemClass> options = new FirestoreRecyclerOptions.Builder<FollowingCategoryItemClass>()
+                .setQuery(query, FollowingCategoryItemClass.class)
                 .build();
 
-        adapter = new HorizontalCategoryListAdapter(options);
+        adapter = new VerticalCategoryListAdapter(options);
 
         RecyclerView recyclerView = findViewById(R.id.test_recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
 

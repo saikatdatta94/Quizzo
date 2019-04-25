@@ -102,6 +102,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                         intent.putExtra("email",email);
                         intent.putExtra("userName",userName);
                         intent.putExtra("profile_photo_URL",profilePhotoURL.toString());
+                        intent.putExtra("uId", userId);
                         startActivity(intent);
                         finish();
                     }
@@ -134,6 +135,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             intent.putExtra("email",email);
             intent.putExtra("userName",userName);
             intent.putExtra("profile_photo_URL",profilePhotoURL.toString());
+            intent.putExtra("uId", userId);
             startActivity(intent);
             finish();
         }

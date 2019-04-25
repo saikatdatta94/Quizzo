@@ -1,16 +1,16 @@
 package com.example.saikat.quizzo;
 
-public class Note {
+public class FollowingCategoryItemClass {
 
     private String title;
     private String description;
     private int priority;
 
-    public Note() {
+    public FollowingCategoryItemClass() {
         //empty constructor needed
     }
 
-    public Note(String title, String description, int priority) {
+    public FollowingCategoryItemClass(String title, String description, int priority) {
         this.title = title;
         this.description = description;
         this.priority = priority;

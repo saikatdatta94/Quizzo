@@ -1,6 +1,5 @@
 package com.example.saikat.quizzo;
 
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,17 +9,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-
-import java.util.ArrayList;
 
 public class CategoryListActivity extends AppCompatActivity {
 
@@ -60,12 +51,13 @@ public class CategoryListActivity extends AppCompatActivity {
     private void setUpRecyclerView() {
         Query query = notebookRef.orderBy("priority", Query.Direction.DESCENDING);
 
-        FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
-                .setQuery(query, Note.class)
+        FirestoreRecyclerOptions<FollowingCategoryItemClass> options = new FirestoreRecyclerOptions.Builder<FollowingCategoryItemClass>()
+                .setQuery(query, FollowingCategoryItemClass.class)
                 .build();
 
         adapter = new VerticalCategoryListAdapter(options);
 
+        Log.i(TAG, "setUpRecyclerView: "+options.getSnapshots().toString());
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -76,12 +68,14 @@ public class CategoryListActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         adapter.startListening();
+        Log.i(TAG, "onStart: Started listening");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
+        Log.i(TAG, "onStop: Stopped listening");
     }
 
 

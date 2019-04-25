@@ -10,13 +10,13 @@ import android.widget.TextView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
-public class VerticalCategoryListAdapter extends FirestoreRecyclerAdapter<Note, VerticalCategoryListAdapter.NoteHolder> {
-    public VerticalCategoryListAdapter(@NonNull FirestoreRecyclerOptions<Note> options) {
+public class VerticalCategoryListAdapter extends FirestoreRecyclerAdapter<FollowingCategoryItemClass, VerticalCategoryListAdapter.NoteHolder> {
+    public VerticalCategoryListAdapter(@NonNull FirestoreRecyclerOptions<FollowingCategoryItemClass> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull NoteHolder holder, int position, @NonNull Note model) {
+    protected void onBindViewHolder(@NonNull NoteHolder holder, int position, @NonNull FollowingCategoryItemClass model) {
         holder.textViewTitle.setText(model.getTitle());
         holder.textViewDescription.setText(model.getDescription());
 //        holder.textViewPriority.setText(String.valueOf(model.getPriority()));
