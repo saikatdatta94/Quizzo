@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QuizActivity">
+    <LinearLayout
+        android:id="@+id/icons"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:orientation="horizontal">
+        <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/timer_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/round_settings_black_36dp"/>
+        <TextView
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/timer_icon"
+            android:id="@+id/counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00"/>
+    </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginLeft="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/timer_icon_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/round_settings_black_36dp"/>
+            <TextView
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/timer_icon_1"
+                android:id="@+id/counter_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginLeft="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/timer_icon_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/round_settings_black_36dp"/>
+            <TextView
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/timer_icon_3"
+                android:id="@+id/counter_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_marginLeft="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_toStartOf="@+id/counter_4"
+                android:id="@+id/timer_icon_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Score"/>
+            <TextView
+                android:layout_marginStart="8dp"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/counter_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <TextView
+        android:layout_below="@+id/icons"
+        android:id="@+id/question"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:text="Who played the father of Amitabh Bacchan's Character in 'Paa'?"/>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_below="@id/question"
+        android:layout_width="match_parent"
+        android:layout_height="256dp" />
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <Button
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:textSize="24dp"
+            android:id="@+id/b1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:text="Rajkumar rao"/>
+
+        <Button
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:textSize="24dp"
+            android:layout_below="@+id/b2"
+            android:id="@+id/b3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:text="Abhishek bacchan"/>
+        <Button
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:textSize="24dp"
+            android:layout_below="@+id/b3"
+            android:id="@+id/b4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:text="Vivek Oberoy"/>
+
+        <Button
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:textSize="24dp"
+            android:id="@+id/b2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:layout_below="@+id/b1"
+            android:text="Afteb shivdesani" />
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -6,6 +6,8 @@ public class FollowingCategoryItemClass {
     private String description;
     private int priority;
 
+//    TODO : ********************Which items a user is following
+
     public FollowingCategoryItemClass() {
         //empty constructor needed
     }

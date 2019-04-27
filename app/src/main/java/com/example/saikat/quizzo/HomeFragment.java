@@ -20,6 +20,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -114,6 +115,20 @@ public class HomeFragment extends Fragment {
         recommendedRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         recommendedRecyclerView.setAdapter(horizontalCategoryListAdapter);
 
+
+        horizontalCategoryListAdapter.setOnHorizontalCategoryOnclickListener(new HorizontalCategoryListAdapter.OnHorizontalCategoryOnclickListener() {
+            @Override
+            public void onHorizontalItemCLick(DocumentSnapshot documentSnapshot, int position) {
+                Bundle bndlanimation =
+                        ActivityOptions.makeCustomAnimation(getActivity().getBaseContext(), R.anim.animation,R.anim.animation2).toBundle();
+                FollowingCategoryItemClass following = documentSnapshot.toObject(FollowingCategoryItemClass.class);
+                Intent intent = new Intent(getActivity(),QuestionActivity.class);
+
+//                TODO:***************************** PASS details to the intent
+
+                startActivity(intent,bndlanimation);
+            }
+        });
 
         return view;
     }

@@ -12,9 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Dummy">
-
-        </activity>
+        <activity android:name=".QuizActivity"></activity>
+        <activity android:name=".Dummy"></activity>
         <activity
             android:name=".QuestionActivity"
             android:theme="@style/CollapseToolbarActivity" />

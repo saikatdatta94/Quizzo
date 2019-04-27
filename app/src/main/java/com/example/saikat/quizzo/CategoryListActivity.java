@@ -1,5 +1,7 @@
 package com.example.saikat.quizzo;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -57,11 +60,30 @@ public class CategoryListActivity extends AppCompatActivity {
 
         adapter = new VerticalCategoryListAdapter(options);
 
-        Log.i(TAG, "setUpRecyclerView: "+options.getSnapshots().toString());
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+
+//        TODO: ************ On clicking an item takes to a new Activity inherited from Vertical category list Adapter
+        adapter.setOnItemClickListener(new VerticalCategoryListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+
+                Bundle bndlanimation =
+                        ActivityOptions.makeCustomAnimation(getBaseContext(), R.anim.animation,R.anim.animation2).toBundle();
+                FollowingCategoryItemClass following = documentSnapshot.toObject(FollowingCategoryItemClass.class);
+                Intent intent = new Intent(CategoryListActivity.this,QuestionActivity.class);
+                String path = documentSnapshot.getReference().getPath();
+                Log.i(TAG, "onItemClick: "+path);
+                intent.putExtra("path",path);
+//                TODO:***************************** PASS details to the intent
+
+                startActivity(intent,bndlanimation);
+
+            }
+        });
     }
 
     @Override
