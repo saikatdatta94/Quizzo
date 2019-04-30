@@ -2,15 +2,15 @@
 <resources>
     <color name="colorPrimary">#4e5293</color>
     <color name="colorPrimaryDark">#3e416d</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#EA4335</color>
     <!--<color name="lightBlueBack">#e8ecff</color>-->
     <color name="lightBlueBack">#e8ecff</color>
     <color name="lightBlueInactive">#C6D6EE</color>
     <color name="inactiveGrey">#a8abaf</color>
     <color name="radiantCyan">#65e6f2</color>
 
-
-    <color name="nav_not_selected">#b1b2be</color>
+    <color name="progressBack">#E0EBFA</color>
+    <color name="nav_not_selected">#b0b2be</color>
     <color name="theme_green">#62d76b</color>
     <color name="colorWhite">#ffffff</color>
 

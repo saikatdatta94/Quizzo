@@ -5,21 +5,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".QuizActivity">
+
+    <LinearLayout
+        android:id="@+id/level_progress"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:elevation="32dp"
+        android:layout_height="56dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_cancel_black_24dp"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:progressDrawable="@drawable/progress_bar_layout"
+            android:layout_width="0dp"
+            android:layout_height="12dp"
+            android:progress="37"
+            android:layout_weight="1"
+            />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_flag_black_24dp"/>
+
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/countdown_progressbar"
+        android:layout_below="@id/level_progress"
+        android:layout_width="match_parent"
+        android:layout_height="3dp">
+        <ProgressBar
+            android:id="@+id/timer_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:progressTint="@color/colorPrimary"
+            android:progress="100"/>
+    </FrameLayout>
     <LinearLayout
         android:id="@+id/icons"
+        android:layout_below="@id/countdown_progressbar"
         android:layout_width="match_parent"
         android:layout_height="32dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
         <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/timer_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/round_settings_black_36dp"/>
-        <TextView
+            android:layout_width="24dp"
             android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_timer_black_24dp"/>
+        <TextView
+            android:layout_marginStart="4dp"
             android:layout_toEndOf="@id/timer_icon"
             android:id="@+id/counter"
             android:layout_width="wrap_content"
@@ -34,7 +85,7 @@
                 android:id="@+id/timer_icon_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/round_settings_black_36dp"/>
+                android:src="@drawable/ic_timer_black_24dp"/>
             <TextView
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@id/timer_icon_1"
@@ -51,7 +102,7 @@
                 android:id="@+id/timer_icon_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/round_settings_black_36dp"/>
+                android:src="@drawable/ic_timer_black_24dp"/>
             <TextView
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@id/timer_icon_3"
@@ -64,16 +115,19 @@
         <RelativeLayout
             android:layout_weight="1"
             android:layout_marginLeft="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <TextView
                 android:layout_toStartOf="@+id/counter_4"
                 android:id="@+id/timer_icon_4"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Current Score"/>
             <TextView
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/counter_4"
                 android:layout_width="wrap_content"
