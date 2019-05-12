@@ -20,7 +20,7 @@
             android:src="@drawable/ic_cancel_black_24dp"/>
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/questions_progressBar"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
@@ -28,7 +28,6 @@
             android:progressDrawable="@drawable/progress_bar_layout"
             android:layout_width="0dp"
             android:layout_height="12dp"
-            android:progress="37"
             android:layout_weight="1"
             />
 
@@ -89,7 +88,7 @@
             <TextView
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@id/timer_icon_1"
-                android:id="@+id/counter_1"
+                android:id="@+id/xp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00"/>
@@ -106,7 +105,7 @@
             <TextView
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@id/timer_icon_3"
-                android:id="@+id/counter_3"
+                android:id="@+id/high_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00"/>
@@ -119,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <TextView
-                android:layout_toStartOf="@+id/counter_4"
+                android:layout_toStartOf="@+id/current_score"
                 android:id="@+id/timer_icon_4"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
@@ -129,7 +128,7 @@
             <TextView
                 android:layout_marginStart="4dp"
                 android:layout_alignParentEnd="true"
-                android:id="@+id/counter_4"
+                android:id="@+id/current_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00"/>
@@ -144,12 +143,12 @@
         android:textSize="32sp"
         android:textStyle="bold"
         android:layout_height="wrap_content"
-        android:text="Who played the father of Amitabh Bacchan's Character in 'Paa'?"/>
+        android:text=""/>
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/image_question"
         android:layout_below="@id/question"
         android:layout_width="match_parent"
-        android:layout_height="256dp" />
+        android:layout_height="wrap_content" />
     <LinearLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
@@ -165,8 +164,7 @@
             android:id="@+id/b1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="8dp"
-            android:text="Rajkumar rao"/>
+            android:text=""/>
 
         <Button
             android:textStyle="bold"
@@ -176,8 +174,8 @@
             android:id="@+id/b3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="8dp"
-            android:text="Abhishek bacchan"/>
+            android:layout_marginTop="8dp"
+            android:text=""/>
         <Button
             android:textStyle="bold"
             android:padding="16dp"
@@ -186,8 +184,8 @@
             android:id="@+id/b4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="8dp"
-            android:text="Vivek Oberoy"/>
+            android:layout_marginTop="8dp"
+            android:text=""/>
 
         <Button
             android:textStyle="bold"
@@ -196,9 +194,9 @@
             android:id="@+id/b2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="8dp"
+            android:layout_marginTop="8dp"
             android:layout_below="@+id/b1"
-            android:text="Afteb shivdesani" />
+            android:text="" />
     </LinearLayout>
 
 

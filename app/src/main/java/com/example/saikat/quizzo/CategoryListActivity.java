@@ -22,7 +22,7 @@ public class CategoryListActivity extends AppCompatActivity {
     private static final String TAG = "CategotyList";
     private String activityHeading;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference notebookRef = db.collection("Notebook");
+    private CollectionReference notebookRef = db.collection("categoryItems");
 
     private VerticalCategoryListAdapter adapter;
 
@@ -52,7 +52,8 @@ public class CategoryListActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-        Query query = notebookRef.orderBy("priority", Query.Direction.DESCENDING);
+        Query query = notebookRef
+                .whereEqualTo("parentCategory",activityHeading);
 
         FirestoreRecyclerOptions<FollowingCategoryItemClass> options = new FirestoreRecyclerOptions.Builder<FollowingCategoryItemClass>()
                 .setQuery(query, FollowingCategoryItemClass.class)
@@ -74,10 +75,16 @@ public class CategoryListActivity extends AppCompatActivity {
                 Bundle bndlanimation =
                         ActivityOptions.makeCustomAnimation(getBaseContext(), R.anim.animation,R.anim.animation2).toBundle();
                 FollowingCategoryItemClass following = documentSnapshot.toObject(FollowingCategoryItemClass.class);
-                Intent intent = new Intent(CategoryListActivity.this,QuestionActivity.class);
+                Intent intent = new Intent(CategoryListActivity.this, CategoryDetailActivity.class);
                 String path = documentSnapshot.getReference().getPath();
+
                 Log.i(TAG, "onItemClick: "+path);
                 intent.putExtra("path",path);
+                intent.putExtra("title",following.getTitle());
+                intent.putExtra("description",following.getDescription());
+//                intent.putExtra("imgURL",path);
+//                intent.putExtra("path",path);
+
 //                TODO:***************************** PASS details to the intent
 
                 startActivity(intent,bndlanimation);
@@ -89,6 +96,7 @@ public class CategoryListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         adapter.startListening();
         Log.i(TAG, "onStart: Started listening");
     }

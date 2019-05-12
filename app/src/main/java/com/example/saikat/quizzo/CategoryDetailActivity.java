@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.transition.TransitionManager;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -26,7 +25,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class QuestionActivity extends AppCompatActivity {
+public class CategoryDetailActivity extends AppCompatActivity {
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -35,11 +34,17 @@ public class QuestionActivity extends AppCompatActivity {
     private TextView descriptionView;
     private Button playBtn;
 
+//    Received intent
+    private String title;
+    private String description;
+    private String path;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
+
 
 
         FloatingActionButton followButton = findViewById(R.id.follow_button);
@@ -49,9 +54,11 @@ public class QuestionActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        title = getIntent().getStringExtra("title");
+        description = getIntent().getStringExtra("description");
 
         final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
-        collapsingToolbarLayout.setTitle("My title");
+        collapsingToolbarLayout.setTitle(title);
 
 
         final LinearLayout heading_description = findViewById(R.id.heading_desc);
@@ -59,7 +66,9 @@ public class QuestionActivity extends AppCompatActivity {
 
 
         headingView = findViewById(R.id.head);
+        headingView.setText(title);
         descriptionView = findViewById(R.id.description);
+        descriptionView.setText(description);
         playBtn = findViewById(R.id.play_btn);
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +142,7 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 followPressed();
-                Toast.makeText(QuestionActivity.this, "Follow Clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CategoryDetailActivity.this, "Follow Clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -142,12 +151,13 @@ public class QuestionActivity extends AppCompatActivity {
 
     public void playClicked(View v){
 
-        Intent intent = new Intent(QuestionActivity.this,QuizActivity.class);
+        Intent intent = new Intent(CategoryDetailActivity.this,QuizActivity.class);
+        intent.putExtra("catName",title);
         startActivity(intent);
     }
 
     public void getDataFromFirebase(){
-        String path = getIntent().getStringExtra("path");
+        path = getIntent().getStringExtra("path");
 
         catRef = db.document(path);
         catRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

@@ -3,6 +3,7 @@ package com.example.saikat.quizzo;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 public class BottomSnackbarClass extends BottomSheetDialogFragment {
 
@@ -23,29 +25,42 @@ public class BottomSnackbarClass extends BottomSheetDialogFragment {
 
     private BottomSheetListener mListener;
 
+    private TextView questionNoText;
+    private TextView subCategoryText;
+    private TextView parentCategoryText;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bottom_snackbar_example,container,false);
 
-        Button btn1 = view.findViewById(R.id.b_sheet_btn1);
-        Button btn2 = view.findViewById(R.id.b_sheet_btn2);
+        Button continueBtn = view.findViewById(R.id.continue_button);
+        Button surrenderBtn = view.findViewById(R.id.surrender_button);
 
-        btn1.setOnClickListener(new View.OnClickListener() {
+        questionNoText = view.findViewById(R.id.question_no_text);
+        subCategoryText = view.findViewById(R.id.sub_category_name);
+        parentCategoryText = view.findViewById(R.id.parent_category_name_bottom);
+
+        continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onButtonClicked("Button 1 from bottom sheet");
+                mListener.onContinueClicked();
                 dismiss();
             }
         });
 
-        btn2.setOnClickListener(new View.OnClickListener() {
+        surrenderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onButtonClicked("Button 1 from bottom sheet");
+                mListener.onSurrenderClicked();
                 dismiss();
             }
         });
+
+        questionNoText.setText(mListener.setQuestionNo());
+        subCategoryText.setText(mListener.setSubCategoryName());
+        parentCategoryText.setText(mListener.setParentCategoryName());
+        setCancelable(false);
 
         return view;
     }
@@ -56,7 +71,11 @@ public class BottomSnackbarClass extends BottomSheetDialogFragment {
 
     public interface BottomSheetListener{
 //        Pass values
-        void onButtonClicked(String passText);
+        void onContinueClicked();
+        void onSurrenderClicked();
+        String setQuestionNo();
+        String setSubCategoryName();
+        String setParentCategoryName();
     }
 
     @Override
@@ -88,6 +107,8 @@ public class BottomSnackbarClass extends BottomSheetDialogFragment {
         final BottomSheetDialog bottomSheetDialog =
                 (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
 
+        bottomSheetDialog.setCancelable(false);
+        // prevent cancelling on back button pressed
         bottomSheetDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override public void onShow(DialogInterface dialog) {
                 FrameLayout bottomSheet =
@@ -99,6 +120,13 @@ public class BottomSnackbarClass extends BottomSheetDialogFragment {
                 }
             }
         });
+
+
+
+
+
         return bottomSheetDialog;
     }
+
+
 }

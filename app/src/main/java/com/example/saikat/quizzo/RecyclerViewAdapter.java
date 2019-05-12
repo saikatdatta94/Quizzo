@@ -85,7 +85,7 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerView.View
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Intent beforeQuizPlayActivity = new Intent(view.getContext(),QuestionActivity.class);
+//                Intent beforeQuizPlayActivity = new Intent(view.getContext(),CategoryDetailActivity.class);
 //                beforeQuizPlayActivity.putExtra("heading",subCategory.getHeading());
 //                beforeQuizPlayActivity.putExtra("description",subCategory.getDescriptionText());
 //                mContext.startActivity(beforeQuizPlayActivity);

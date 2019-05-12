@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment {
 
 //      This array Contains color list for Category Items Strip
         View[] categoryViewList = {categoryScience,category2,category3,category4,category5};
-        String[] categoryName = {"Science","category2","category3","category4","category5"};
+        String[] categoryName = {"cat1","cat2","cat3","cat4","cat5"};
 
         ColorStateList[] categoryTintList = {
                 getActivity().getResources().getColorStateList(R.color.color2),
@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment {
                 Bundle bndlanimation =
                         ActivityOptions.makeCustomAnimation(getActivity().getBaseContext(), R.anim.animation,R.anim.animation2).toBundle();
                 FollowingCategoryItemClass following = documentSnapshot.toObject(FollowingCategoryItemClass.class);
-                Intent intent = new Intent(getActivity(),QuestionActivity.class);
+                Intent intent = new Intent(getActivity(), CategoryDetailActivity.class);
 
 //                TODO:***************************** PASS details to the intent
 

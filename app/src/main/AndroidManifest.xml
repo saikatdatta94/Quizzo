@@ -15,7 +15,7 @@
         <activity android:name=".QuizActivity"></activity>
         <activity android:name=".Dummy"></activity>
         <activity
-            android:name=".QuestionActivity"
+            android:name=".CategoryDetailActivity"
             android:theme="@style/CollapseToolbarActivity" />
         <activity android:name=".CategoryListActivity" />
         <activity android:name=".SettingsActivity" />

@@ -9,6 +9,8 @@
     <color name="inactiveGrey">#a8abaf</color>
     <color name="radiantCyan">#65e6f2</color>
 
+    <color name="quizBtnDefault">#d9e8fb</color>
+
     <color name="progressBack">#E0EBFA</color>
     <color name="nav_not_selected">#b0b2be</color>
     <color name="theme_green">#62d76b</color>

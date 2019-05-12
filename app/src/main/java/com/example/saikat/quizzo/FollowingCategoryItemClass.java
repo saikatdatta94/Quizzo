@@ -5,6 +5,7 @@ public class FollowingCategoryItemClass {
     private String title;
     private String description;
     private int priority;
+    private String parentCategory;
 
 //    TODO : ********************Which items a user is following
 
@@ -12,10 +13,13 @@ public class FollowingCategoryItemClass {
         //empty constructor needed
     }
 
-    public FollowingCategoryItemClass(String title, String description, int priority) {
+
+
+    public FollowingCategoryItemClass(String title, String description, int priority, String parentCategory) {
         this.title = title;
         this.description = description;
         this.priority = priority;
+        this.parentCategory = parentCategory;
     }
 
     public String getTitle() {
@@ -26,7 +30,12 @@ public class FollowingCategoryItemClass {
         return description;
     }
 
+
     public int getPriority() {
         return priority;
+    }
+
+    public String getParentCategory() {
+        return parentCategory;
     }
 }
