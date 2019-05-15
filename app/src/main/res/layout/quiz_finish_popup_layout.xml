@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:id="@+id/cancel_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cancel_black_24dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/result_cat_name"
+        android:layout_below="@id/cancel_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Category Name"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Parent Cat"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/leaderboard_head"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/result_cat_name">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Leaderboard"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:textSize="28sp"
+            android:textStyle="bold"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/colorWhite"
+                android:text="RANK"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorWhite"
+                android:layout_weight="1"
+                android:text="NAME"/>
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                 android:textColor="@color/colorWhite"
+                 android:layout_weight="1"
+                android:text="HIGHSCORE"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@id/leaderboard_head"
+        android:layout_above="@id/wish_to_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--List view of leader board-->
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wish_to_continue"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Do you want to Continue Score?"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="28sp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/btn_layout"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Watch an Ad"/>
+                <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                    android:text="Use 10 Gem"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_below="@id/btn_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="YOUR INVENTORY"
+                    android:textColor="@color/colorWhite"
+                    android:gravity="center"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/gem" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textSize="28sp"
+                        android:textColor="@color/colorWhite"
+                        android:gravity="center"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -383,6 +384,9 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
     @Override
     public void onSurrenderClicked() {
 //Send user to a non cancellable modal or a new activity to start again and to view stats
+
+        DialogFragment dialog = GameFinishPopUp.newInstance();
+        dialog.show(getSupportFragmentManager(),"tag");
     }
 
 
