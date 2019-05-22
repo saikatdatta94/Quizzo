@@ -68,6 +68,10 @@ dependencies {
 
 //    Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+//    Circular round corner determinate progress bar
+    implementation 'com.white:progressview:1.0.1'
+
 }
 
 

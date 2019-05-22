@@ -1,16 +1,20 @@
 package com.example.saikat.quizzo;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -20,19 +24,43 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.white.progressview.CircleProgressView;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CategoryDetailActivity extends AppCompatActivity {
+    private static final String TAG = "CAT_DETAIL_ACTIVITY";
+    //TODO:DELETE this later
+    private TextView followersTextView;
+    private DocumentReference followingCatRef;
 
+    private FirebaseUser user;
+
+//    Get category id
+    private String categoryId="";
+    private String userId="";
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference catRef;
     private TextView headingView;
     private TextView descriptionView;
+    private String followState="null";
     private Button playBtn;
+    private Button followButton;
+
+private CircleProgressView circleProgressView;
+
+    private int followers;
 
 //    Received intent
     private String title;
@@ -45,9 +73,19 @@ public class CategoryDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
 
+//TODO followersTextView tracks number of followers
+        followersTextView = findViewById(R.id.followers);
+
+        followButton = findViewById(R.id.foll_button);
+
+        followButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onFollowButtonClicked();
+            }
+        });
 
 
-        FloatingActionButton followButton = findViewById(R.id.follow_button);
 
 //        Toolbar
         final Toolbar toolbar = findViewById(R.id.question_toolbar);
@@ -64,6 +102,41 @@ public class CategoryDetailActivity extends AppCompatActivity {
         final LinearLayout heading_description = findViewById(R.id.heading_desc);
         TransitionManager.beginDelayedTransition(heading_description);
 
+        circleProgressView = findViewById(R.id.circle_progress_normal);
+
+
+//     add Animation to circular progressbar
+        if (Build.VERSION.SDK_INT >= 24) {
+
+            final int xp = 60;// TODO Get player xp from database
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //Do something after 2000ms
+                    circleProgressView.setProgressInTime(0,xp,1000);
+                }
+            }, 512);
+
+        }
+        else if (Build.VERSION.SDK_INT < 24) {
+
+
+//            TODO code for animation for build version < 24
+
+//            progressAnimator.setDuration(10000);
+//            progressAnimator.addListener(new AnimatorListenerAdapter() {
+//                @Override
+//                public void onAnimationEnd(Animator animation) {
+//                    super.onAnimationEnd(animation);
+//                    timerProgress.setVisibility(View.GONE);
+//                }
+//            });
+//
+//            progressAnimator.start();
+
+//            private ObjectAnimator progressAnimator = ObjectAnimator.ofInt(timerProgress,"progress",100,0);
+        }
 
         headingView = findViewById(R.id.head);
         headingView.setText(title);
@@ -121,30 +194,142 @@ public class CategoryDetailActivity extends AppCompatActivity {
 
         getDataFromFirebase();
 
+//        Get userId
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        userId = user.getUid();
+
+        categoryId = getIntent().getStringExtra("id");
+        checkIfFollowing();
+
+    }
+
+    private void onFollowButtonClicked() {
+        DocumentReference categoryRef = db.document(path);
+        Map<String,Object> category = new HashMap<>();
+
+//     TODO   db.collection("categoryItems/")
 
 
+//        TODO if not following create a following class inside user
 
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.TYPE_STATUS_BAR);
+        if(followState.matches("true") ){  //if follow State if found true
+            followButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_circle_outline_black_24dp,0,0,0);
+            followButton.setText("Follow");
+//            getDataFromFirebase();
+            setFollowStateInDatabase("false");  //change state to false
+//            TODO currently do not decrement followers
+//            category.put("followers",--followers);
+//            categoryRef.update(category);
 
-//        String heading = getIntent().getStringExtra("heading");
-//        String description = getIntent().getStringExtra("description");
+        }else if (followState.matches("false")){
+            followButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_remove_circle_black_24dp,0,0,0);
+            followButton.setText("Following");
+            setFollowStateInDatabase("true");
+            getDataFromFirebase();
+            category.put("followers",++followers);
+            categoryRef.update(category);
 
-//        TextView headingText = findViewById(R.id.head);
-//        TextView descriptionText = findViewById(R.id.descri);
+        }
 
-//        headingText.setText(heading);
-//        descriptionText.setText(description);
-        followButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark)));
+    }
+
+    private void setFollowButtonState(){
+        Log.i(TAG, "setFollowButtonState: "+ followState);
+        if(followState.matches("true") ){
+//            If followState is found true set the button as following
+            followButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_remove_circle_black_24dp,0,0,0);
+            followButton.setText("Following");
+        }else if (followState.matches("false")){
+            followButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_circle_outline_black_24dp,0,0,0);
+            followButton.setText("Follow");
+        }
+    }
+
+    private void setFollowStateInDatabase(String b) {
+
+//                     TODO:   If doesn't exist create
+//                        DocumentReference followingCategoryRef = db.document(followingItemsPath);
+        Map<String,Object> followingCategory = new HashMap<>();
+        followingCategory.put("isFollowing",b);
 
 
-//     TODO   Clicked on follow button
-        followButton.setOnClickListener(new View.OnClickListener() {
+        db.collection("users").document(userId).collection("Notebook").document(categoryId)
+                .update(followingCategory)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.i(TAG, "onSuccess: Updated");
+                         checkIfFollowing();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
+        Log.i(TAG, "onComplete: Doesn't Exists Create");
+    }
+
+    private String checkIfFollowing() {
+        final String followingItemsPath = "users/"+userId+"/Notebook/"+categoryId;
+
+        followingCatRef = db.document(followingItemsPath);
+
+        followingCatRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View view) {
-                followPressed();
-                Toast.makeText(CategoryDetailActivity.this, "Follow Clicked", Toast.LENGTH_SHORT).show();
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot followingCatDoc = task.getResult();
+                    if (followingCatDoc.exists()){
+                        FollowingCategoryItemClass followingCatObject = followingCatDoc.toObject(FollowingCategoryItemClass.class);
+                        //                        TODO Check if already following
+                        followState = followingCatObject.getIsFollowing();
+
+//                        TODO  !!!!!!!---------Warning------------!!!!!!!! as the date 18-5-2019 boolean inside a document is always is returning as false so we will use string instead for is following
+                        setFollowButtonState();
+                        Log.i(TAG, "check If following: State:"+ followState);
+                        Log.i(TAG, "onComplete: title:"+ followingCatObject.getTitle());
+                        Log.i(TAG, "onComplete: descr:"+ followingCatObject.getDescription());
+                    }else {
+//                     TODO:   If doesn't exist create
+//                        DocumentReference followingCategoryRef = db.document(followingItemsPath);
+                        Map<String,Object> followingCategory = new HashMap<>();
+                        followingCategory.put("isFollowing","false");
+
+
+                        db.collection("users").document(userId).collection("Notebook").document(categoryId)
+                                .set(followingCategory)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                                        followState = "false";
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error writing document", e);
+                                    }
+                                });
+                        Log.i(TAG, "onComplete: Doesn't Exists Create");
+                    }
+                }else {
+                    Log.i(TAG, "onComplete: Not successFul");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                e.printStackTrace();
             }
         });
+
+
+        return followState;
+
+
 
     }
 
@@ -168,10 +353,12 @@ public class CategoryDetailActivity extends AppCompatActivity {
                     DocumentSnapshot categoryDoc = task.getResult();
 
                     if (categoryDoc.exists()){
-                        FollowingCategoryItemClass catObject = categoryDoc.toObject(FollowingCategoryItemClass.class);
+                        CategoryItemClass catObject = categoryDoc.toObject(CategoryItemClass.class);
+//                        TODO No. of followers
+                        categoryId = categoryDoc.getId(); //TODO recieve from intent
+                        followers = catObject.getFollowers();
+                        followersTextView.setText(String.valueOf(catObject.getFollowers()));
 
-//                        headingView.setText(catObject.getTitle());
-//                        descriptionView.setText(catObject.getDescription());
                     }
                 }
             }
@@ -194,7 +381,5 @@ public class CategoryDetailActivity extends AppCompatActivity {
         finish();
     }
 
-    public void followPressed(){
 
-    }
 }

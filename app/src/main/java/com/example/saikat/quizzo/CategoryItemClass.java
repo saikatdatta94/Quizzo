@@ -1,26 +1,32 @@
 package com.example.saikat.quizzo;
 
-public class FollowingCategoryItemClass {
+public class CategoryItemClass {
+
     private String title;
     private String description;
     private int priority;
-    private String isFollowing;
+    private String parentCategory;
+    private int followers;
 
 //    TODO : ********************Which items a user is following
 
-    public FollowingCategoryItemClass() {
+    public CategoryItemClass() {
         //empty constructor needed
     }
 
 
 
-    public FollowingCategoryItemClass(String title, String description, int priority, String isFollowing) {
+    public CategoryItemClass(String title, String description, int priority, String parentCategory, int followers) {
         this.title = title;
         this.description = description;
         this.priority = priority;
-        this.isFollowing = isFollowing;
+        this.parentCategory = parentCategory;
+        this.followers = followers;
     }
 
+    public int getFollowers() {
+        return followers;
+    }
 
 
     public String getTitle() {
@@ -36,8 +42,7 @@ public class FollowingCategoryItemClass {
         return priority;
     }
 
-    public String getIsFollowing() {
-        return isFollowing;
+    public String getParentCategory() {
+        return parentCategory;
     }
-
 }

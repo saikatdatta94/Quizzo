@@ -55,8 +55,8 @@ public class CategoryListActivity extends AppCompatActivity {
         Query query = notebookRef
                 .whereEqualTo("parentCategory",activityHeading);
 
-        FirestoreRecyclerOptions<FollowingCategoryItemClass> options = new FirestoreRecyclerOptions.Builder<FollowingCategoryItemClass>()
-                .setQuery(query, FollowingCategoryItemClass.class)
+        FirestoreRecyclerOptions<CategoryItemClass> options = new FirestoreRecyclerOptions.Builder<CategoryItemClass>()
+                .setQuery(query, CategoryItemClass.class)
                 .build();
 
         adapter = new VerticalCategoryListAdapter(options);
@@ -74,7 +74,7 @@ public class CategoryListActivity extends AppCompatActivity {
 
                 Bundle bndlanimation =
                         ActivityOptions.makeCustomAnimation(getBaseContext(), R.anim.animation,R.anim.animation2).toBundle();
-                FollowingCategoryItemClass following = documentSnapshot.toObject(FollowingCategoryItemClass.class);
+                CategoryItemClass following = documentSnapshot.toObject(CategoryItemClass.class);
                 Intent intent = new Intent(CategoryListActivity.this, CategoryDetailActivity.class);
                 String path = documentSnapshot.getReference().getPath();
 
@@ -82,7 +82,7 @@ public class CategoryListActivity extends AppCompatActivity {
                 intent.putExtra("path",path);
                 intent.putExtra("title",following.getTitle());
                 intent.putExtra("description",following.getDescription());
-//                intent.putExtra("imgURL",path);
+                intent.putExtra("id",documentSnapshot.getReference().getId());
 //                intent.putExtra("path",path);
 
 //                TODO:***************************** PASS details to the intent

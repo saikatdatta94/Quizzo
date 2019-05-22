@@ -11,15 +11,15 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-public class VerticalCategoryListAdapter extends FirestoreRecyclerAdapter<FollowingCategoryItemClass, VerticalCategoryListAdapter.NoteHolder> {
+public class VerticalCategoryListAdapter extends FirestoreRecyclerAdapter<CategoryItemClass, VerticalCategoryListAdapter.NoteHolder> {
     private OnItemClickListener listener;     //  Global for the listener below
 
-    public VerticalCategoryListAdapter(@NonNull FirestoreRecyclerOptions<FollowingCategoryItemClass> options) {
+    public VerticalCategoryListAdapter(@NonNull FirestoreRecyclerOptions<CategoryItemClass> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull NoteHolder holder, int position, @NonNull FollowingCategoryItemClass model) {
+    protected void onBindViewHolder(@NonNull NoteHolder holder, int position, @NonNull CategoryItemClass model) {
         holder.textViewTitle.setText(model.getTitle());
         holder.textViewDescription.setText(model.getDescription());
 //        holder.textViewPriority.setText(String.valueOf(model.getPriority()));

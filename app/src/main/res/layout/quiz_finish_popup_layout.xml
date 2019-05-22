@@ -55,23 +55,27 @@
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
             <TextView
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="14dp"
                 android:textColor="@color/colorWhite"
+                android:textSize="12sp"
                 android:text="RANK"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="32dp"
+                android:textSize="12sp"
                 android:textColor="@color/colorWhite"
-                android:layout_weight="1"
                 android:text="NAME"/>
              <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                  android:textColor="@color/colorWhite"
                  android:layout_weight="1"
+                 android:gravity="end"
+                 android:layout_marginEnd="16dp"
+                 android:textSize="12sp"
                 android:text="HIGHSCORE"/>
         </LinearLayout>
 
@@ -81,11 +85,16 @@
         android:layout_above="@id/wish_to_continue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <HorizontalScrollView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp">
             <!--List view of leader board-->
-        </HorizontalScrollView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/leader_board_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </ScrollView>
     </LinearLayout>
 
     <LinearLayout

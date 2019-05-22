@@ -12,11 +12,11 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-public class HorizontalCategoryListAdapter extends FirestoreRecyclerAdapter<FollowingCategoryItemClass, HorizontalCategoryListAdapter.NoteHolderHorizontal> {
+public class HorizontalCategoryListAdapter extends FirestoreRecyclerAdapter<CategoryItemClass, HorizontalCategoryListAdapter.NoteHolderHorizontal> {
 
     private OnHorizontalCategoryOnclickListener listener;
 
-    public HorizontalCategoryListAdapter(@NonNull FirestoreRecyclerOptions<FollowingCategoryItemClass> options) {
+    public HorizontalCategoryListAdapter(@NonNull FirestoreRecyclerOptions<CategoryItemClass> options) {
         super(options);
     }
 
@@ -27,7 +27,7 @@ public class HorizontalCategoryListAdapter extends FirestoreRecyclerAdapter<Foll
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull NoteHolderHorizontal holder, int position, @NonNull FollowingCategoryItemClass model) {
+    protected void onBindViewHolder(@NonNull NoteHolderHorizontal holder, int position, @NonNull CategoryItemClass model) {
         holder.textViewTitle.setText(model.getTitle());
         holder.textViewDescription.setText(model.getDescription());
 //        holder.textViewPriority.setText(String.valueOf(model.getPriority()));

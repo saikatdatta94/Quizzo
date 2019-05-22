@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
 
     View view;
     private RecyclerView recommendedRecyclerView;
-    private FirestoreRecyclerOptions<FollowingCategoryItemClass> options;
+    private FirestoreRecyclerOptions<CategoryItemClass> options;
 
     //  Horizontal RecycleView
 //    RecyclerView recyclerView;
@@ -121,7 +121,7 @@ public class HomeFragment extends Fragment {
             public void onHorizontalItemCLick(DocumentSnapshot documentSnapshot, int position) {
                 Bundle bndlanimation =
                         ActivityOptions.makeCustomAnimation(getActivity().getBaseContext(), R.anim.animation,R.anim.animation2).toBundle();
-                FollowingCategoryItemClass following = documentSnapshot.toObject(FollowingCategoryItemClass.class);
+                CategoryItemClass following = documentSnapshot.toObject(CategoryItemClass.class);
                 Intent intent = new Intent(getActivity(), CategoryDetailActivity.class);
 
 //                TODO:***************************** PASS details to the intent
@@ -149,8 +149,8 @@ public class HomeFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         notebookRef   = db.collection("/users/"+userId+"/Notebook");//Change the collection path to desired collection later
         Query query = notebookRef.orderBy("priority", Query.Direction.DESCENDING);// Sorted according to priority
-        options = new FirestoreRecyclerOptions.Builder<FollowingCategoryItemClass>()
-                .setQuery(query, FollowingCategoryItemClass.class)
+        options = new FirestoreRecyclerOptions.Builder<CategoryItemClass>()
+                .setQuery(query, CategoryItemClass.class)
                 .build();
 
 

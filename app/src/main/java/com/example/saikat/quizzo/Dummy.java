@@ -37,8 +37,8 @@ public class Dummy extends AppCompatActivity {
     private void setUpRecyclerView() {
         Query query = notebookRef.orderBy("priority", Query.Direction.DESCENDING);
 
-        FirestoreRecyclerOptions<FollowingCategoryItemClass> options = new FirestoreRecyclerOptions.Builder<FollowingCategoryItemClass>()
-                .setQuery(query, FollowingCategoryItemClass.class)
+        FirestoreRecyclerOptions<CategoryItemClass> options = new FirestoreRecyclerOptions.Builder<CategoryItemClass>()
+                .setQuery(query, CategoryItemClass.class)
                 .build();
 
         adapter = new VerticalCategoryListAdapter(options);
