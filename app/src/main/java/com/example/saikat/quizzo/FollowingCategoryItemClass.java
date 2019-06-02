@@ -5,6 +5,10 @@ public class FollowingCategoryItemClass {
     private String description;
     private int priority;
     private String isFollowing;
+    private int highScore;
+    private String parent;
+    private int xp;
+    private int level;
 
 //    TODO : ********************Which items a user is following
 
@@ -13,12 +17,20 @@ public class FollowingCategoryItemClass {
     }
 
 
+    public String getParent() {
+        return parent;
+    }
 
-    public FollowingCategoryItemClass(String title, String description, int priority, String isFollowing) {
+    public FollowingCategoryItemClass(String title, String description, int priority, String isFollowing,
+                                      int highScore, String parent,int level,int xp) {
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.isFollowing = isFollowing;
+        this.highScore = highScore;
+        this.parent = parent;
+        this.level = level;
+        this.xp = xp;
     }
 
 
@@ -38,6 +50,18 @@ public class FollowingCategoryItemClass {
 
     public String getIsFollowing() {
         return isFollowing;
+    }
+
+    public int getHighScore() {
+        return highScore;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
 }

@@ -129,6 +129,7 @@
                     android:layout_height="wrap_content"
                     android:text="Watch an Ad"/>
                 <Button
+                    android:id="@+id/use_gem_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                     android:text="Use 10 Gem"/>

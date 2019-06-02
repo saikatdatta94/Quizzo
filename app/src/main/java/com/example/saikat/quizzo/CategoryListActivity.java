@@ -83,6 +83,7 @@ public class CategoryListActivity extends AppCompatActivity {
                 intent.putExtra("title",following.getTitle());
                 intent.putExtra("description",following.getDescription());
                 intent.putExtra("id",documentSnapshot.getReference().getId());
+                intent.putExtra("parent",activityHeading);
 //                intent.putExtra("path",path);
 
 //                TODO:***************************** PASS details to the intent

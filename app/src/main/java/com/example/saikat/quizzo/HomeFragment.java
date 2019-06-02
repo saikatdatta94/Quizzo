@@ -121,9 +121,16 @@ public class HomeFragment extends Fragment {
             public void onHorizontalItemCLick(DocumentSnapshot documentSnapshot, int position) {
                 Bundle bndlanimation =
                         ActivityOptions.makeCustomAnimation(getActivity().getBaseContext(), R.anim.animation,R.anim.animation2).toBundle();
-                CategoryItemClass following = documentSnapshot.toObject(CategoryItemClass.class);
-                Intent intent = new Intent(getActivity(), CategoryDetailActivity.class);
+                FollowingCategoryItemClass following = documentSnapshot.toObject(FollowingCategoryItemClass.class);
+                Intent intent = new Intent(getContext(), CategoryDetailActivity.class);
 
+                String id = documentSnapshot.getReference().getId();
+                String path = "categoryItems/"+id;
+                intent.putExtra("path",path);
+                intent.putExtra("title",following.getTitle());
+                intent.putExtra("description",following.getDescription());
+                intent.putExtra("id",id);
+                intent.putExtra("parent",following.getParent());
 //                TODO:***************************** PASS details to the intent
 
                 startActivity(intent,bndlanimation);

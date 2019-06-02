@@ -40,6 +40,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     public static final String USER_ID = "userId";
     public static final String EMAIL = "email";
     public static final String IS_PREMIUM = "isPremium";
+    public static final String PROFILE_IMAGE = "profileImage";
     private Button googleSignInButton;
     private static final int PERMISSION_SIGN_IN = 1;
     GoogleSignInClient mGoogleSignInClient;
@@ -192,6 +193,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         user.put(USER_ID,userId);
         user.put(EMAIL,email);
         user.put(IS_PREMIUM,0);
+        user.put(PROFILE_IMAGE,profilePhotoURL.toString());
         db.collection("users").document(userId).set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

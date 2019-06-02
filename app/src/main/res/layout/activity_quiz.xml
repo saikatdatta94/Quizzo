@@ -88,7 +88,7 @@
             <TextView
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@id/timer_icon_1"
-                android:id="@+id/xp"
+                android:id="@+id/high_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00"/>
@@ -105,7 +105,7 @@
             <TextView
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@id/timer_icon_3"
-                android:id="@+id/high_score"
+                android:id="@+id/xp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00"/>

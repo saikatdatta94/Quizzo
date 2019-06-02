@@ -1,5 +1,6 @@
 package com.example.saikat.quizzo;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +15,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.PicassoProvider;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class LeaderBoardListAdapter extends FirestoreRecyclerAdapter<LeaderBoardItem,LeaderBoardListAdapter.LeaderListHolder> {
 
     public LeaderBoardListAdapter(@NonNull FirestoreRecyclerOptions options) {
@@ -25,9 +28,9 @@ public class LeaderBoardListAdapter extends FirestoreRecyclerAdapter<LeaderBoard
     @Override
     protected void onBindViewHolder(@NonNull LeaderListHolder holder, int position, @NonNull LeaderBoardItem model) {
 
-//        Picasso.get().load(model.getImageUrl()).into(holder.leaderBoardImage);
-        holder.leaderBoardName.setText(model.getTitle());
-        holder.leaderBoardScore.setText(model.getDescription());
+        Picasso.get().load(model.getPhotoURL()).into(holder.leaderBoardImage);
+        holder.leaderBoardName.setText(model.getUserName());
+        holder.leaderBoardScore.setText(String.valueOf(model.getScore()));
     }
 
     @Override
@@ -47,7 +50,7 @@ public class LeaderBoardListAdapter extends FirestoreRecyclerAdapter<LeaderBoard
     class LeaderListHolder extends RecyclerView.ViewHolder{
 
         TextView number;
-        ImageView leaderBoardImage;
+        CircleImageView leaderBoardImage;
         TextView leaderBoardName;
         TextView leaderBoardScore;
         public LeaderListHolder(@NonNull View itemView) {

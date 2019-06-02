@@ -18,14 +18,25 @@
         android:textSize="16sp"
         android:textColor="@color/colorWhite"
         android:text="1"/>
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/leader_board_image"
         android:layout_width="32dp"
         android:layout_height="32dp"
+        android:src="@drawable/profile_blank"
         android:layout_marginStart="24dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/profile_blank"/>
+        app:civ_border_width="2dp"
+        app:civ_border_color="#f25243"/>
+    <!--<ImageView-->
+        <!--android:id="@+id/leader_board_image"-->
+        <!--android:layout_width="32dp"-->
+        <!--android:layout_height="32dp"-->
+        <!--android:layout_marginStart="24dp"-->
+        <!--android:layout_marginTop="4dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:src="@drawable/profile_blank"/>-->
     <TextView
         android:id="@+id/leader_board_name"
         android:layout_width="wrap_content"

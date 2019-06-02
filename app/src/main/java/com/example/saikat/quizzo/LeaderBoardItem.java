@@ -13,6 +13,11 @@ public class LeaderBoardItem {
 //    private String parent;
 //    private String uid;
 
+    private String userId;
+    private String userName;
+    private String photoURL;
+    private int score;
+
     private String title;
     private String description;
     private int priority;
@@ -26,23 +31,42 @@ public class LeaderBoardItem {
 //        this.uid = uid;
 //    }
 
-    public LeaderBoardItem(String title, String description, int priority) {
-        this.title = title;
-        this.description = description;
-        this.priority = priority;
+    public LeaderBoardItem(String userId,String userName,String photoURL,int score) {
+
+
+        this.userId = userId;
+        this.userName = userName;
+        this.photoURL = photoURL;
+        this.score = score;
     }
 
-    public String getTitle() {
-        return title;
+    public String getUserId() {
+        return userId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getUserName() {
+        return userName;
     }
 
-    public int getPriority() {
-        return priority;
+    public String getPhotoURL() {
+        return photoURL;
     }
+
+    public int getScore() {
+        return score;
+    }
+
+//    public String getTitle() {
+//        return title;
+//    }
+//
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public int getPriority() {
+//        return priority;
+//    }
 
     //    public String getImageUrl() {
 //        return imageUrl;

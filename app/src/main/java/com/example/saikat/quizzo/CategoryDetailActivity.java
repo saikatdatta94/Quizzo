@@ -54,6 +54,7 @@ public class CategoryDetailActivity extends AppCompatActivity {
     private DocumentReference catRef;
     private TextView headingView;
     private TextView descriptionView;
+    private TextView levelInsideCircleTextView;
     private String followState="null";
     private Button playBtn;
     private Button followButton;
@@ -61,11 +62,16 @@ public class CategoryDetailActivity extends AppCompatActivity {
 private CircleProgressView circleProgressView;
 
     private int followers;
+    private int highScore;
+    private int xp;
+    private int level;
 
 //    Received intent
-    private String title;
-    private String description;
-    private String path;
+    private String title=" ";
+    private String description=" ";
+    private String path=" ";
+    private String parentCategory;
+
 
 
     @Override
@@ -92,8 +98,12 @@ private CircleProgressView circleProgressView;
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        title = getIntent().getStringExtra("title");
-        description = getIntent().getStringExtra("description");
+        if (getIntent()!=null){
+            title = getIntent().getStringExtra("title");
+            description = getIntent().getStringExtra("description");
+            parentCategory = getIntent().getStringExtra("parent");
+        }
+
 
         final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
         collapsingToolbarLayout.setTitle(title);
@@ -103,40 +113,13 @@ private CircleProgressView circleProgressView;
         TransitionManager.beginDelayedTransition(heading_description);
 
         circleProgressView = findViewById(R.id.circle_progress_normal);
+        circleProgressView.setMax(200);
+
+        levelInsideCircleTextView = findViewById(R.id.level_indicator);
 
 
-//     add Animation to circular progressbar
-        if (Build.VERSION.SDK_INT >= 24) {
-
-            final int xp = 60;// TODO Get player xp from database
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    //Do something after 2000ms
-                    circleProgressView.setProgressInTime(0,xp,1000);
-                }
-            }, 512);
-
-        }
-        else if (Build.VERSION.SDK_INT < 24) {
 
 
-//            TODO code for animation for build version < 24
-
-//            progressAnimator.setDuration(10000);
-//            progressAnimator.addListener(new AnimatorListenerAdapter() {
-//                @Override
-//                public void onAnimationEnd(Animator animation) {
-//                    super.onAnimationEnd(animation);
-//                    timerProgress.setVisibility(View.GONE);
-//                }
-//            });
-//
-//            progressAnimator.start();
-
-//            private ObjectAnimator progressAnimator = ObjectAnimator.ofInt(timerProgress,"progress",100,0);
-        }
 
         headingView = findViewById(R.id.head);
         headingView.setText(title);
@@ -198,7 +181,10 @@ private CircleProgressView circleProgressView;
         user = FirebaseAuth.getInstance().getCurrentUser();
         userId = user.getUid();
 
-        categoryId = getIntent().getStringExtra("id");
+        if (getIntent()!=null){
+            categoryId = getIntent().getStringExtra("id");
+        }
+
         checkIfFollowing();
 
     }
@@ -215,11 +201,8 @@ private CircleProgressView circleProgressView;
         if(followState.matches("true") ){  //if follow State if found true
             followButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_circle_outline_black_24dp,0,0,0);
             followButton.setText("Follow");
-//            getDataFromFirebase();
             setFollowStateInDatabase("false");  //change state to false
 //            TODO currently do not decrement followers
-//            category.put("followers",--followers);
-//            categoryRef.update(category);
 
         }else if (followState.matches("false")){
             followButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_remove_circle_black_24dp,0,0,0);
@@ -285,6 +268,15 @@ private CircleProgressView circleProgressView;
                         FollowingCategoryItemClass followingCatObject = followingCatDoc.toObject(FollowingCategoryItemClass.class);
                         //                        TODO Check if already following
                         followState = followingCatObject.getIsFollowing();
+                        highScore = followingCatObject.getHighScore();
+                        xp = followingCatObject.getXp();
+                        level = followingCatObject.getLevel();
+
+//                        After getting the data start progress animator
+                        setLevelText();
+                        loadAnimatedProgressBar();
+
+
 
 //                        TODO  !!!!!!!---------Warning------------!!!!!!!! as the date 18-5-2019 boolean inside a document is always is returning as false so we will use string instead for is following
                         setFollowButtonState();
@@ -296,6 +288,14 @@ private CircleProgressView circleProgressView;
 //                        DocumentReference followingCategoryRef = db.document(followingItemsPath);
                         Map<String,Object> followingCategory = new HashMap<>();
                         followingCategory.put("isFollowing","false");
+                        followingCategory.put("highScore",0);
+                        followingCategory.put("title",title);
+                        followingCategory.put("description",description);
+                        followingCategory.put("parent",parentCategory);
+                        followingCategory.put("level",1);
+                        followingCategory.put("xp",0);
+                        followingCategory.put("priority",1);
+
 
 
                         db.collection("users").document(userId).collection("Notebook").document(categoryId)
@@ -334,10 +334,16 @@ private CircleProgressView circleProgressView;
     }
 
 
+
     public void playClicked(View v){
 
         Intent intent = new Intent(CategoryDetailActivity.this,QuizActivity.class);
         intent.putExtra("catName",title);
+        intent.putExtra("catId",categoryId);
+        intent.putExtra("parent",parentCategory);
+        intent.putExtra("highScore",highScore);
+        intent.putExtra("xp",xp);
+        intent.putExtra("level",level);
         startActivity(intent);
     }
 
@@ -382,4 +388,42 @@ private CircleProgressView circleProgressView;
     }
 
 
+    public void loadAnimatedProgressBar(){
+        //     add Animation to circular progressbar
+        if (Build.VERSION.SDK_INT >= 24) {
+//             final int xp = 60;
+            // TODO Get player xp from database
+            Log.i(TAG, "onCreate: Xp "+ xp);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //Do something after 1000ms
+                    circleProgressView.setProgressInTime(0,xp,1000);
+                }
+            }, 512);
+
+        }
+        else if (Build.VERSION.SDK_INT < 24) {
+
+//            TODO code for animation for build version < 24
+
+//            progressAnimator.setDuration(10000);
+//            progressAnimator.addListener(new AnimatorListenerAdapter() {
+//                @Override
+//                public void onAnimationEnd(Animator animation) {
+//                    super.onAnimationEnd(animation);
+//                    timerProgress.setVisibility(View.GONE);
+//                }
+//            });
+//
+//            progressAnimator.start();
+
+//            private ObjectAnimator progressAnimator = ObjectAnimator.ofInt(timerProgress,"progress",100,0);
+        }
+    }
+
+    public void setLevelText(){
+        levelInsideCircleTextView.setText(String.valueOf(level));
+    }
 }
