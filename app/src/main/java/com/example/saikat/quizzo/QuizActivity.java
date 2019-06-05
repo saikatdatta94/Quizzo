@@ -20,6 +20,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +66,11 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
     private int scoreToWrite = 0;
     private int totalXp = 0;
     private boolean firstTime = true;
+
+
+//    Power ups
+    private RelativeLayout correctAnsPowerUp;
+
 
 //    Receive Intent
     private String categoryName;
@@ -141,6 +147,15 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         Log.i(TAG, "onCreate: ");
+
+//        Power Up views
+        correctAnsPowerUp = findViewById(R.id.right_answer_power_up);
+        correctAnsPowerUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                correctAnswerPowerUpUsed();
+            }
+        });
 
         currentScoreView = findViewById(R.id.current_score);
 
@@ -224,7 +239,6 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
         if (isAnswerCorrect(optionNumber)){
             button.setBackgroundColor(getResources().getColor(R.color.theme_green));
 //            questionProgressBar.setProgress(++correctUntilLevel);
-
 
             //            answer correct increment score
             score++;
@@ -439,10 +453,11 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
         startTimer();
 
-        b1.setBackgroundColor(getResources().getColor(R.color.quizBtnDefault));
-        b2.setBackgroundColor(getResources().getColor(R.color.quizBtnDefault));
-        b3.setBackgroundColor(getResources().getColor(R.color.quizBtnDefault));
-        b4.setBackgroundColor(getResources().getColor(R.color.quizBtnDefault));
+//        b1.setBackgroundColor(getResources().getColor(R.color.quizBtnDefault));
+        b1.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        b2.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        b3.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        b4.setBackgroundColor(getResources().getColor(R.color.colorWhite));
 
         questionTextView.setText(questionList.get(questionRequestNo).getQuestion());
         b1.setText(questionList.get(questionRequestNo).getOption1());
@@ -670,5 +685,16 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 //                TODO  PROGRESSBAR FILLED SHOW SOME ACHIEVEMENT
 
         }
+    }
+
+
+    private void correctAnswerPowerUpUsed(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setCorrectOptionColor();
+            }
+        },2000);
     }
 }
