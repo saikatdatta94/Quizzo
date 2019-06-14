@@ -12,27 +12,99 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_cancel_black_24dp"/>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/result_cat_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/cancel_layout"
+        android:background="@drawable/ray"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/category_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/result_cat_name"
+            android:text="Category Name"
+            android:clickable="true"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/parent_category_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Parent Cat"
+            android:textColor="@color/inactiveGrey"
+            android:textStyle="bold" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pro_img_view_finish"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/profile_blank"
+
+            android:layout_marginBottom="8dp"
+            app:civ_border_width="6dp"
+            app:civ_border_color="@color/colorWhite"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/h_score_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
+        android:layout_alignBottom="@id/result_cat_name">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Category Name"
-            android:textColor="@color/colorWhite"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Parent Cat"
-            android:gravity="center"
-            android:textColor="@color/colorWhite"/>
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/anim_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                android:paddingTop="16dp"
+                android:fontFamily="@font/alegreyasans"
+                android:textColor="@color/colorWhite"
+                android:text="NEW HIGH SCORE"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:shadowDx="-4"
+                android:shadowDy="-4"
+                android:shadowRadius="0.5"
+                android:shadowColor="@color/colorAccent"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/anim_text_view2"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                android:paddingTop="16dp"
+                android:fontFamily="@font/alegreyasans"
+                android:textColor="@color/colorWhite"
+                android:text="NEW HIGH SCORE"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:shadowDx="-8"
+                android:shadowDy="-8"
+                android:shadowRadius="0.5"
+                android:shadowColor="@color/colorAccent"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -40,7 +112,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/result_cat_name">
+        android:layout_below="@id/h_score_layout">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,20 +124,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="14dp"
                 android:textColor="@color/colorWhite"
-                android:textSize="12sp"
+                android:alpha="0.7"
+                android:textSize="10sp"
+                android:textStyle="bold"
                 android:text="RANK"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="32dp"
-                android:textSize="12sp"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:alpha="0.7"
                 android:textColor="@color/colorWhite"
                 android:text="NAME"/>
              <TextView
@@ -75,7 +151,9 @@
                  android:layout_weight="1"
                  android:gravity="end"
                  android:layout_marginEnd="16dp"
-                 android:textSize="12sp"
+                 android:textSize="10sp"
+                 android:textStyle="bold"
+                 android:alpha="0.7"
                 android:text="HIGHSCORE"/>
         </LinearLayout>
 
@@ -114,6 +192,7 @@
             android:textSize="28sp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
             />
 
         <RelativeLayout
@@ -124,25 +203,86 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <Button
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Watch an Ad"/>
-                <Button
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@color/colorWhite">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="WATCH AN AD"/>
+
+                </RelativeLayout>
+                <RelativeLayout
                     android:id="@+id/use_gem_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                    android:text="Use 10 Gem"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@color/colorWhite">
+                    <TextView
+                        android:id="@+id/finish_gem_btn_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:textColor="@color/theme_green"
+                        android:textStyle="bold"
+                        android:text="Use"/>
+                    <TextView
+                        android:id="@+id/text_ten"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_toRightOf="@id/finish_gem_btn_text"
+                        android:text="10"/>
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/gem"
+                        android:foregroundGravity="center_vertical"
+                        android:layout_toRightOf="@id/text_ten"/>
+                </RelativeLayout>
+
             </LinearLayout>
             <LinearLayout
-                android:layout_below="@id/btn_layout"
+                android:id="@+id/result_btn_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_below="@id/btn_layout">
+
+               <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   android:paddingStart="16dp"
+                   android:paddingEnd="16dp"
+                   android:textSize="16sp"
+                   android:textColor="@color/colorAccent"
+                   android:textStyle="bold"
+                   android:background="@drawable/rounded_button"
+                   android:backgroundTint="@color/colorWhite"
+                    android:text="SHOW RESULT"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_below="@id/result_btn_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="YOUR INVENTORY"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:alpha="0.7"
                     android:textColor="@color/colorWhite"
                     android:gravity="center"/>
                 <LinearLayout
@@ -152,14 +292,14 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:layout_width="32dp"
+                        android:layout_width="28dp"
                         android:layout_height="match_parent"
                         android:src="@drawable/gem" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="10"
-                        android:textSize="28sp"
+                        android:textSize="24sp"
                         android:textColor="@color/colorWhite"
                         android:gravity="center"/>
                 </LinearLayout>

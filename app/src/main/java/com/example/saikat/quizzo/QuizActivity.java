@@ -10,6 +10,8 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -226,28 +228,24 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
     }
 
     private void passButtonOfCorrectAnswer(Button button,int optionNumber) {
-        progressAnimator.end();
-        timer.cancel();
-        countDownTimer.cancel();
-        b1.setClickable(false);
-        b2.setClickable(false);
-        b3.setClickable(false);
-        b4.setClickable(false);
-
+        stopTimer();
+        disableAnswerButtons();
+        disablePowerupButtons();
 
 
         if (isAnswerCorrect(optionNumber)){
-            button.setBackgroundColor(getResources().getColor(R.color.theme_green));
+//         TODO   button.setBackgroundColor(getResources().getColor(R.color.theme_green));
+            ViewCompat.setBackgroundTintList(button, ContextCompat.getColorStateList(this,R.color.theme_green));
 //            questionProgressBar.setProgress(++correctUntilLevel);
 
             //            answer correct increment score
-            score++;
-            currentScoreView.setText(String.valueOf(score));
+            incrementScore();
             setXp();
             setHighScore();
             setQuestionProgressBar();
         }else {
-            button.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+//       TODO     button.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            ViewCompat.setBackgroundTintList(button, ContextCompat.getColorStateList(this,R.color.colorAccent));
             setCorrectOptionColor();
             writeHighScoreToProfile();
             final Handler wrongAnsHandler = new Handler();
@@ -285,16 +283,20 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
     private void setCorrectOptionColor() {
         switch (correctOption){
             case 1:
-                b1.setBackgroundColor(getResources().getColor(R.color.theme_green));
+     //TODO           b1.setBackgroundColor(getResources().getColor(R.color.theme_green));
+                ViewCompat.setBackgroundTintList(b1, ContextCompat.getColorStateList(this,R.color.theme_green));
                 break;
             case 2:
-                b2.setBackgroundColor(getResources().getColor(R.color.theme_green));
+        //TODO        b2.setBackgroundColor(getResources().getColor(R.color.theme_green));
+                ViewCompat.setBackgroundTintList(b2, ContextCompat.getColorStateList(this,R.color.theme_green));
                 break;
             case 3:
-                b3.setBackgroundColor(getResources().getColor(R.color.theme_green));
+        //TODO        b3.setBackgroundColor(getResources().getColor(R.color.theme_green));
+                ViewCompat.setBackgroundTintList(b3, ContextCompat.getColorStateList(this,R.color.theme_green));
                 break;
             case 4:
-                b4.setBackgroundColor(getResources().getColor(R.color.theme_green));
+       //TODO         b4.setBackgroundColor(getResources().getColor(R.color.theme_green));
+                ViewCompat.setBackgroundTintList(b4, ContextCompat.getColorStateList(this,R.color.theme_green));
                 break;
                 default:
                     Log.i(TAG, "setCorrectOptionColor: Problem loading data");
@@ -340,7 +342,7 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
         countDownTimer = new CountDownTimer(10000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-              timerText.setText(String.valueOf(millisUntilFinished/1000));
+              timerText.setText(String.valueOf(millisUntilFinished/1000)+"''");
             }
 
             @Override
@@ -446,18 +448,21 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
         b3.setVisibility(View.VISIBLE);
         b4.setVisibility(View.VISIBLE);
 
-        b1.setClickable(true);
-        b2.setClickable(true);
-        b3.setClickable(true);
-        b4.setClickable(true);
+        enableAnswerButtons();
+        enablePowerupButtons();
 
         startTimer();
 
 //        b1.setBackgroundColor(getResources().getColor(R.color.quizBtnDefault));
-        b1.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        b2.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        b3.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        b4.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+//    TODO    b1.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+//    TODO    b2.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+//     TODO   b3.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+//    TODO    b4.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+
+        ViewCompat.setBackgroundTintList(b1, ContextCompat.getColorStateList(this,R.color.colorWhite));
+        ViewCompat.setBackgroundTintList(b2, ContextCompat.getColorStateList(this,R.color.colorWhite));
+        ViewCompat.setBackgroundTintList(b3, ContextCompat.getColorStateList(this,R.color.colorWhite));
+        ViewCompat.setBackgroundTintList(b4, ContextCompat.getColorStateList(this,R.color.colorWhite));
 
         questionTextView.setText(questionList.get(questionRequestNo).getQuestion());
         b1.setText(questionList.get(questionRequestNo).getOption1());
@@ -689,12 +694,66 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
 
     private void correctAnswerPowerUpUsed(){
+        doIfAnswerIsCorrect();
+        disablePowerupButtons();
+    }
+
+    public void doIfAnswerIsCorrect(){
+        stopTimer();
+        disableAnswerButtons();
+        incrementScore();
+        setXp();
+        setHighScore();
+        setQuestionProgressBar();
+        setCorrectOptionColor();     // Just set the correct option color to green
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                setCorrectOptionColor();
+                showBottomSheetDialog();
             }
         },2000);
     }
+
+
+
+    public void stopTimer(){
+        progressAnimator.end();
+        timer.cancel();
+        countDownTimer.cancel();
+    }
+
+
+    public void incrementScore(){
+        score++;
+        currentScoreView.setText(String.valueOf(score));
+    }
+
+//    Put answer buttons to non-clickable state
+    public void disableAnswerButtons(){
+        b1.setClickable(false);
+        b2.setClickable(false);
+        b3.setClickable(false);
+        b4.setClickable(false);
+    }
+
+//    Set answer buttons to clickable
+    public void enableAnswerButtons(){
+        b1.setClickable(true);
+        b2.setClickable(true);
+        b3.setClickable(true);
+        b4.setClickable(true);
+    }
+
+    public void disablePowerupButtons(){
+        correctAnsPowerUp.setClickable(false);
+
+    }
+
+    public void enablePowerupButtons(){
+        correctAnsPowerUp.setClickable(true);
+    }
+
+
 }

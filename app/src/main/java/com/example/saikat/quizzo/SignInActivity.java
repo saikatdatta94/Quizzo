@@ -2,6 +2,7 @@ package com.example.saikat.quizzo;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     public static final String EMAIL = "email";
     public static final String IS_PREMIUM = "isPremium";
     public static final String PROFILE_IMAGE = "profileImage";
+    public static final String GEM_NUMBER = "gems";
     private Button googleSignInButton;
     private static final int PERMISSION_SIGN_IN = 1;
     GoogleSignInClient mGoogleSignInClient;
@@ -131,6 +133,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             userId = user.getUid();
 
 
+
             //Redirecting user to Main Activity and Passing the user data
             Intent intent = new Intent(SignInActivity.this,MainActivity.class); //Creating Intent and Passing Login Creds
             intent.putExtra("email",email);
@@ -194,6 +197,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         user.put(EMAIL,email);
         user.put(IS_PREMIUM,0);
         user.put(PROFILE_IMAGE,profilePhotoURL.toString());
+        user.put(GEM_NUMBER,100);
         db.collection("users").document(userId).set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
