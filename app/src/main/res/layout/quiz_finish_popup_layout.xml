@@ -40,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="Parent Cat"
             android:textColor="@color/inactiveGrey"
             android:textStyle="bold" />
@@ -64,6 +65,7 @@
         android:id="@+id/h_score_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:layout_alignBottom="@id/result_cat_name">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -72,7 +74,7 @@
                 android:id="@+id/anim_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:gravity="center_horizontal"
                 android:paddingTop="16dp"
                 android:fontFamily="@font/alegreyasans"
@@ -90,7 +92,7 @@
                 android:id="@+id/anim_text_view2"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:gravity="center_horizontal"
                 android:paddingTop="16dp"
                 android:fontFamily="@font/alegreyasans"
@@ -112,6 +114,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-26dp"
         android:layout_below="@id/h_score_layout">
         <TextView
             android:layout_width="match_parent"
@@ -119,7 +122,7 @@
             android:text="Leaderboard"
             android:textColor="@color/colorWhite"
             android:gravity="center"
-            android:textSize="28sp"
+            android:textSize="24sp"
             android:textStyle="bold"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -189,10 +192,10 @@
             android:textColor="@color/colorWhite"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:textSize="28sp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
+            android:textSize="22sp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
             />
 
         <RelativeLayout
@@ -200,51 +203,65 @@
             android:layout_height="wrap_content">
             <LinearLayout
                 android:id="@+id/btn_layout"
-                android:gravity="center"
+                android:layout_marginStart="64dp"
+                android:layout_marginEnd="64dp"
                 android:layout_width="match_parent"
+                android:orientation="horizontal"
                 android:layout_height="wrap_content">
+
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
                     android:background="@drawable/rounded_button"
                     android:backgroundTint="@color/colorWhite">
+
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:padding="8dp"
-                        android:text="WATCH AN AD"/>
+                        android:text="WATCH VIDEO" />
 
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/use_gem_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:clickable="true"
+                    android:layout_weight="1"
                     android:background="@drawable/rounded_button"
                     android:backgroundTint="@color/colorWhite">
-                    <TextView
-                        android:id="@+id/finish_gem_btn_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:textColor="@color/theme_green"
-                        android:textStyle="bold"
-                        android:text="Use"/>
-                    <TextView
-                        android:id="@+id/text_ten"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_toRightOf="@id/finish_gem_btn_text"
-                        android:text="10"/>
-                    <ImageView
+                    <RelativeLayout
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/finish_gem_btn_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:textColor="@color/theme_green"
+                            android:textStyle="bold"
+                            android:text="Use"/>
+                        <TextView
+                            android:id="@+id/text_ten"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/finish_gem_btn_text"
+                            android:padding="8dp"
+                            android:text="10" />
+                        <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginTop="8dp"
                         android:src="@drawable/gem"
                         android:foregroundGravity="center_vertical"
                         android:layout_toRightOf="@id/text_ten"/>
+                    </RelativeLayout>
+
                 </RelativeLayout>
 
             </LinearLayout>
@@ -253,20 +270,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_below="@id/btn_layout">
 
-               <Button
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                   android:paddingStart="16dp"
-                   android:paddingEnd="16dp"
-                   android:textSize="16sp"
-                   android:textColor="@color/colorAccent"
-                   android:textStyle="bold"
-                   android:background="@drawable/rounded_button"
-                   android:backgroundTint="@color/colorWhite"
-                    android:text="SHOW RESULT"/>
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@color/colorWhite">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorAccent"
+                        android:text="SHOW RESULT"/>
+
+                </RelativeLayout>
+
 
 
             </LinearLayout>
@@ -274,7 +295,7 @@
                 android:layout_below="@id/result_btn_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"

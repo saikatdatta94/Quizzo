@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -67,7 +69,8 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
     private Uri photoUrl;
     private int scoreToWrite = 0;
     private int totalXp = 0;
-    private boolean firstTime = true;
+
+    private int gem = 0;
 
 
 //    Power ups
@@ -81,6 +84,7 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
     private int highScore;
     private int previousXp;
+    DocumentReference userRef;
 
     private int levelToIncrement;
     private int residualXp;
@@ -114,6 +118,7 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
     private TextView timerText;
     private TextView highScoreTextView;
     private TextView xpTextView;
+    private TextView gemNumberTextView;
 
 
     private TextView questionTextView;
@@ -174,6 +179,8 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
         xpTextView = findViewById(R.id.xp);
         xpTextView.setText(String.valueOf(xp));
 
+        gemNumberTextView = findViewById(R.id.gem_number);
+
 
 
         questionTextView.setVisibility(View.GONE);
@@ -225,6 +232,7 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
 
         getUserData();
+        getGemNumberFromDatabase();
     }
 
     private void passButtonOfCorrectAnswer(Button button,int optionNumber) {
@@ -694,8 +702,71 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
 
     private void correctAnswerPowerUpUsed(){
-        doIfAnswerIsCorrect();
+
         disablePowerupButtons();
+
+        if (gem>=5){
+            gem = gem - 5;
+            gemNumberTextView.setText(String.valueOf(gem));
+            doIfAnswerIsCorrect();
+            userRef.update("gems",gem).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Log.i(TAG, "onComplete: Gems Updated");
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.i(TAG, "onFailure: Failed to update gem");
+                }
+            });
+
+        }else {
+            Log.i(TAG, "correctAnswerPowerUpUsed: Not enough Gem");
+        }
+        if (gem<5){
+//            TODO: TURN THE BUTTON AREA INTO GREY
+//            ImageView powerGem = findViewById(R.id.correct_answer_gem);
+//            ImageView tick = findViewById(R.id.tick);
+//            ColorMatrix matrix = new ColorMatrix();
+//            matrix.setSaturation(0);
+//
+//            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+//            powerGem.setColorFilter(filter);
+//            tick.setColorFilter(filter);
+
+
+            Toast.makeText(this, "You ran out of Gems", Toast.LENGTH_LONG).show();
+
+//            TODO: POP BUY OPTION
+        }
+
+
+    }
+
+//    Get the gem number  from database
+    private void getGemNumberFromDatabase(){
+        userRef = db.collection("users").document(userId);
+        Log.i(TAG, "onFailure: Failed");
+        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()){
+                      gem = Integer.parseInt(String.valueOf(document.get("gems"))) ;
+                        Log.i(TAG, "onComplete: Gems: "+gem);
+                      gemNumberTextView.setText(String.valueOf(gem));
+                    }
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i(TAG, "onFailure: Failed");
+            }
+        });
     }
 
     public void doIfAnswerIsCorrect(){

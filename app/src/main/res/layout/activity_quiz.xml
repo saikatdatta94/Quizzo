@@ -385,6 +385,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <ImageView
+                    android:id="@+id/tick"
                     android:layout_alignParentStart="true"
                     android:layout_toLeftOf="@id/correct_answer_gem"
                     android:layout_width="28dp"

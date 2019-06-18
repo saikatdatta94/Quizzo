@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -97,7 +98,29 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                         userName = authResult.getUser().getDisplayName();
                         profilePhotoURL = authResult.getUser().getPhotoUrl();
                         userId = authResult.getUser().getUid();
-                        createUser();
+
+//                        Check in firebase if userId already exists
+
+                        DocumentReference docRef = db.collection("users").document(userId);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+//                                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+//                                      TODO  update new fields if required
+                                    } else {
+//                                        Log.d(TAG, "No such document");
+//                                        TODO Create new user
+                                        createUser();
+                                    }
+                                } else {
+                                    Log.d("SIGN", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+
 
 
                         //Redirecting user to Main Activity and Passing the user data
