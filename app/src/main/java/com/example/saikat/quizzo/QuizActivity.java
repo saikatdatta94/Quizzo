@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -63,6 +65,14 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
     private static final String SCORE = "score";
 
 
+//    Animated logos
+    private ImageView doubleChanceRotateImage;
+    private ImageView fiftyFiftyPowerUpImage;
+    private ImageView correctAnswerTickImage;
+
+//    ANSWER LAYOUTS
+    private LinearLayout answerLayout;
+
 //    USer data variables
     private String userName;
     private String userId;
@@ -75,6 +85,8 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
 //    Power ups
     private RelativeLayout correctAnsPowerUp;
+    private RelativeLayout doubleChancePowerUp;
+    private RelativeLayout fiftyFiftyPowerUp;
 
 
 //    Receive Intent
@@ -93,7 +105,7 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
 
 //TODO:    is questions loaded from database
-    private boolean isLoaded = false;
+
     private static final String TAG = "QUIZ_ACTIVITY";
     private ArrayList<Question> questionList = new ArrayList<Question>();
 
@@ -164,14 +176,49 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
             }
         });
 
+        doubleChancePowerUp = findViewById(R.id.double_chance_view);
+        doubleChancePowerUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doubleChancePowerUpUsed();
+            }
+        });
+
+        fiftyFiftyPowerUp = findViewById(R.id.fifty_fifty_layout);
+        fiftyFiftyPowerUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fiftyFiftyPowerUpUsed();
+            }
+        });
+
+//        find Animated logo ids
+
+        doubleChanceRotateImage = findViewById(R.id.double_chance_logo);
+        fiftyFiftyPowerUpImage = findViewById(R.id.fifty_fifty_icon);
+        correctAnswerTickImage = findViewById(R.id.tick);
+
+
         currentScoreView = findViewById(R.id.current_score);
 
         questionTextView = findViewById(R.id.question);
         questionImage = findViewById(R.id.image_question);
+
+        answerLayout = findViewById(R.id.options_layout);
+
+//     TODO   6:10
+
         b1 = findViewById(R.id.b1);
         b2 = findViewById(R.id.b2);
         b3 = findViewById(R.id.b3);
         b4 = findViewById(R.id.b4);
+
+//     TODO   6:10
+
+
+
+
+
         highScoreTextView = findViewById(R.id.high_score);
         highScore = getIntent().getIntExtra("highScore",0);
         highScoreTextView.setText(String.valueOf(highScore));
@@ -203,6 +250,9 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
         BottomSnackbarClass popUp = new BottomSnackbarClass();
         popUp.show(getSupportFragmentManager(),"changeLater");
+
+
+//     TODO   TRY CHANGING THESE INTO METHODS CALLED FROM XML attrs
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -320,7 +370,9 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
         parentCategory = getIntent().getStringExtra("parent");
         previousXp = getIntent().getIntExtra("xp",0);
         level = getIntent().getIntExtra("level",0);
-        questionRef.whereEqualTo("category",categoryName)
+        questionRef
+                .whereEqualTo("category",categoryName)
+//                .orderBy("priority", Query.Direction.DESCENDING)   //TODO : LATER CHANGE IT TO LEVEL
                 .limit(10)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -398,8 +450,6 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
                     progressAnimator.start();
         }
 
-
-
     }
 
 //    High score is updated each time if score is greater than highScore
@@ -451,10 +501,7 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 //    Start the timer only if the player is ready to take the question
         questionTextView.setVisibility(View.VISIBLE);
         questionImage.setVisibility(View.VISIBLE);
-        b1.setVisibility(View.VISIBLE);
-        b2.setVisibility(View.VISIBLE);
-        b3.setVisibility(View.VISIBLE);
-        b4.setVisibility(View.VISIBLE);
+
 
         enableAnswerButtons();
         enablePowerupButtons();
@@ -467,17 +514,77 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 //     TODO   b3.setBackgroundColor(getResources().getColor(R.color.colorWhite));
 //    TODO    b4.setBackgroundColor(getResources().getColor(R.color.colorWhite));
 
+
+
+        questionTextView.setText(questionList.get(questionRequestNo).getQuestion());
+//       TODO 6:12
+
+//        b1.setText(questionList.get(questionRequestNo).getOption1());
+//        b2.setText(questionList.get(questionRequestNo).getOption2());
+//        b3.setText(questionList.get(questionRequestNo).getOption3());
+//        b4.setText(questionList.get(questionRequestNo).getOption4());
+
+
+
+        //       TODO 6:12
+
+
+        correctOption = questionList.get(questionRequestNo).getCorrect();
+
+
+//        TODO : SET IMAGE
+
+//        TODO ------------****************CHECK VALIDITY LATER
+        if (questionList.get(questionRequestNo).getImgURL() != null){
+
+
+            answerLayout.setVisibility(View.GONE);
+            answerLayout = findViewById(R.id.horizontal_options_layout);
+            answerLayout.setVisibility(View.VISIBLE);
+//            TODO--- SET HORIZONTAL ANSWER LAYOUT VISIBLE
+
+//            TODO--- CHANGE B1/B2/B3/B4 ID CORRESPONDING
+            b1 = findViewById(R.id.horizontal_btn_1);
+            b2 = findViewById(R.id.horizontal_btn_2);
+            b3 = findViewById(R.id.horizontal_btn_3);
+            b4 = findViewById(R.id.horizontal_btn_4);
+
+            Picasso.get().load(questionList.get(questionRequestNo).getImgURL()).into(questionImage);
+            Log.i(TAG, "onContinueClicked: "+questionList.get(questionRequestNo).getImgURL());
+
+
+//            CHANGE ButtonLayout
+        }else {
+            questionImage.setImageDrawable(null);
+            answerLayout.setVisibility(View.GONE);
+            answerLayout = findViewById(R.id.options_layout);
+            answerLayout.setVisibility(View.VISIBLE);
+
+            b1 = findViewById(R.id.b1);
+            b2 = findViewById(R.id.b2);
+            b3 = findViewById(R.id.b3);
+            b4 = findViewById(R.id.b4);
+
+
+            //            TODO--- THIS QUESTION HAS IMAGE SET VERTICAL ANSWER LAYOUT VISIBLE
+            //            TODO--- CHANGE B1/B2/B3/B4 ID CORRESPONDING
+        }
         ViewCompat.setBackgroundTintList(b1, ContextCompat.getColorStateList(this,R.color.colorWhite));
         ViewCompat.setBackgroundTintList(b2, ContextCompat.getColorStateList(this,R.color.colorWhite));
         ViewCompat.setBackgroundTintList(b3, ContextCompat.getColorStateList(this,R.color.colorWhite));
         ViewCompat.setBackgroundTintList(b4, ContextCompat.getColorStateList(this,R.color.colorWhite));
 
-        questionTextView.setText(questionList.get(questionRequestNo).getQuestion());
+        b1.setVisibility(View.VISIBLE);
+        b2.setVisibility(View.VISIBLE);
+        b3.setVisibility(View.VISIBLE);
+        b4.setVisibility(View.VISIBLE);
+
         b1.setText(questionList.get(questionRequestNo).getOption1());
         b2.setText(questionList.get(questionRequestNo).getOption2());
         b3.setText(questionList.get(questionRequestNo).getOption3());
         b4.setText(questionList.get(questionRequestNo).getOption4());
-        correctOption = questionList.get(questionRequestNo).getCorrect();
+
+
         qNo++;
 
 //        increment for next question
@@ -566,15 +673,6 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 //        updatedFollowingCategory.put("xp",0);
 //        followingCatRef.update(updatedFollowingCategory);
 //    }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -745,6 +843,82 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
     }
 
+    public void fiftyFiftyPowerUpUsed(){
+        disablePowerupButtons();
+
+
+//TODO: Handle spark exhaust conditions
+        fiftyFiftyPowerUpImage.animate().rotation(20).setDuration(64);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fiftyFiftyPowerUpImage.animate().rotation(-40).setDuration(64);
+            }
+        },64);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fiftyFiftyPowerUpImage.animate().rotation(0).setDuration(64);
+            }
+        },64);
+
+
+
+//        DISABLE 2 wrong answers
+        if(correctOption == 1){
+            //Disable random between 2,3,4
+            greyOutWrongOptions(2,3,4);
+        }else if(correctOption == 2){
+            //Disable random between 1,3,4
+            greyOutWrongOptions(1,3,4);
+        }else if(correctOption == 3){
+            //Disable random between 1,2,4
+            greyOutWrongOptions(1,2,4);
+        }else if(correctOption == 4){
+            //Disable random between 1,2,3
+            greyOutWrongOptions(1,2,3);
+        }
+    }
+
+    public void doubleChancePowerUpUsed(){
+        //        Rotate the icon
+        Log.i(TAG, "doubleChancePowerUpUsed: I was used");
+        doubleChanceRotateImage.animate().rotationBy(360).start();
+
+    }
+
+    public void greyOutWrongOptions(int a,int b,int c){
+        int randNo =(int) (Math.random() * 3);
+
+//        Assign random between a,b,c to zero so 2 randomly will be disabled
+        if (randNo ==0){
+            a = 0;
+        }else if (randNo ==1){
+            b = 0;
+        }else if (randNo == 2){
+            c = 0;
+        }
+
+
+        if (a==1 || b==1 || c ==1){
+            ViewCompat.setBackgroundTintList(b1, ContextCompat.getColorStateList(this,R.color.inactiveGrey));
+            b1.setClickable(false);
+        }
+        if(a==2 || b==2 || c == 2){
+            ViewCompat.setBackgroundTintList(b2, ContextCompat.getColorStateList(this,R.color.inactiveGrey));
+            b2.setClickable(false);
+        }
+        if(a==3 || b==3 || c == 3){
+            ViewCompat.setBackgroundTintList(b3, ContextCompat.getColorStateList(this,R.color.inactiveGrey));
+            b3.setClickable(false);
+        }
+        if (a==4 || b==4 || c == 4){
+            ViewCompat.setBackgroundTintList(b4, ContextCompat.getColorStateList(this,R.color.inactiveGrey));
+            b4.setClickable(false);
+        }
+    }
+
+
 //    Get the gem number  from database
     private void getGemNumberFromDatabase(){
         userRef = db.collection("users").document(userId);
@@ -819,12 +993,36 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
     public void disablePowerupButtons(){
         correctAnsPowerUp.setClickable(false);
+        doubleChancePowerUp.setClickable(false);
+        fiftyFiftyPowerUp.setClickable(false);
 
     }
 
     public void enablePowerupButtons(){
         correctAnsPowerUp.setClickable(true);
+        doubleChancePowerUp.setClickable(true);
+        fiftyFiftyPowerUp.setClickable(true);
     }
 
 
+
+    public void b1Clicked(View view) {
+        Log.i(TAG, "b1Clicked: b1 clicked");
+        passButtonOfCorrectAnswer(b1,1);
+    }
+
+    public void b2Clicked(View view) {
+        Log.i(TAG, "b2Clicked: b2 clicked");
+        passButtonOfCorrectAnswer(b2,2);
+    }
+
+    public void b3Clicked(View view) {
+        Log.i(TAG, "b3Clicked: b3 clicked");
+        passButtonOfCorrectAnswer(b3,3);
+    }
+
+    public void b4Clicked(View view) {
+        Log.i(TAG, "b4Clicked: b4 clicked");
+        passButtonOfCorrectAnswer(b4,4);
+    }
 }
