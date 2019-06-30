@@ -33,7 +33,7 @@
                 android:textStyle="bold"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimaryDark"/>
 
 
             <View
@@ -47,12 +47,6 @@
 
             <include layout="@layout/setting_items"
               android:id="@+id/change_pwd"/>
-
-            <Switch
-                android:id="@+id/switch1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Switch" />
 
             <include layout="@layout/setting_items"
                 android:id="@+id/set_goals"/>
@@ -69,7 +63,7 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="16dp"
                 android:layout_marginBottom="8dp"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimaryDark"/>
 
             <View
                 android:id="@+id/share_divider"
@@ -96,7 +90,8 @@
                 android:paddingTop="32dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginBottom="8dp"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimaryDark"/>
+
 
             <View
                 android:id="@+id/support_divider"
@@ -119,10 +114,24 @@
             <include layout="@layout/setting_items"
                 android:id="@+id/privacy_policy"/>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+            <TextView
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Version 0.0.1"/>
+            <TextView
+                android:layout_marginTop="8dp"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="\u00A9 2019 Quizzo"/>
 
-            <include layout="@layout/category_strip_item_layout"
-                android:id="@+id/privacy_policy"/>
-
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
         </LinearLayout>
     </ScrollView>
 

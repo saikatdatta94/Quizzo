@@ -25,7 +25,7 @@
             android:id="@+id/category_item_text"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:textColor="@color/colorWhite"
             android:fontFamily="@font/fibraoneregular"
             android:gravity="center"
@@ -37,8 +37,10 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginEnd="16dp"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
             android:alpha="0.5"
-            android:src="@drawable/round_settings_white_36dp" />
+            android:src="@drawable/ic_chevron_right_black_24dp" />
 
 
 </RelativeLayout>

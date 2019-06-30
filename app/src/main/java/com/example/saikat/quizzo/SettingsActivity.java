@@ -95,8 +95,12 @@ public class SettingsActivity extends AppCompatActivity {
                 "Rate us on the Play Store","Follow us on Twitter","Like us on Facebook","Help",
                 "Suggest a Feature","Feedback","Terms and Conditions","Privacy Policy"};
 
+        int[] iconResource = {R.drawable.round_settings_black_36dp,R.drawable.change_pwd,R.drawable.bullseye, R.drawable.logout,
+        R.drawable.rate_us,R.drawable.twitter,R.drawable.facebook,R.drawable.help,
+                R.drawable.suggest_feature, R.drawable.feedback,R.drawable.terms,R.drawable.privacy};
+
         for (int i = 0; i < viewArray.length; i++) {
-            changeSettingIcons(viewArray[i],settingText[i],R.drawable.round_settings_black_36dp);
+            changeSettingIcons(viewArray[i],settingText[i],iconResource[i]);
         }
 
 
