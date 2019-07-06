@@ -535,8 +535,11 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 //        TODO : SET IMAGE
 
 //        TODO ------------****************CHECK VALIDITY LATER
-        if (questionList.get(questionRequestNo).getImgURL() != null){
+//        if (questionList.get(questionRequestNo).getImgURL() != null){
 
+        if (questionList.get(questionRequestNo).getIsImg().contentEquals("true")){
+
+            Log.i(TAG, "onContinueClicked: TRUE"+questionList.get(questionRequestNo).getIsImg());
 
             answerLayout.setVisibility(View.GONE);
             answerLayout = findViewById(R.id.horizontal_options_layout);
@@ -555,6 +558,11 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
 //            CHANGE ButtonLayout
         }else {
+
+
+                Log.i(TAG, "onContinueClicked: TRUE"+questionList.get(questionRequestNo).getIsImg());
+
+
             questionImage.setImageDrawable(null);
             answerLayout.setVisibility(View.GONE);
             answerLayout = findViewById(R.id.options_layout);
@@ -689,6 +697,25 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
         leaderBoardObject.put(PROFILE_PHOTO_URL,photoUrl.toString());
         leaderBoardObject.put(USER_ID,userId);
         leaderBoardObject.put(SCORE,scoreToWrite);
+
+//   TODO:     If user ID do not exists in leaderboard  increment the number of users in leaderboard by 1
+        DocumentReference docRef = db.collection("categoryItems").document(categoryId).collection("leaderBoard").document(userId);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+//                        Exists do not write anything
+                    } else {
+//                        TODO: INCREMENT Number of users by 1
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
         db.collection("categoryItems").document(categoryId).collection("leaderBoard").document(userId).
                 set(leaderBoardObject)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

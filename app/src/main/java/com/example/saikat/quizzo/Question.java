@@ -69,7 +69,7 @@ public class Question {
         return imgURL;
     }
 
-    public String isImg() {
+    public String getIsImg() {
         return isImg;
     }
 }

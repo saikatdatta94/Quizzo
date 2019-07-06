@@ -3,8 +3,8 @@
     <color name="colorPrimary">#4e5293</color>
     <color name="colorPrimaryDark">#3e416d</color>
     <color name="colorAccent">#EA4335</color>
+    <color name="lightBlueBack">#f0f6ff</color>
     <!--<color name="lightBlueBack">#e8ecff</color>-->
-    <color name="lightBlueBack">#e8ecff</color>
     <color name="lightBlueInactive">#C6D6EE</color>
     <color name="inactiveGrey">#a8abaf</color>
     <color name="radiantCyan">#65e6f2</color>
