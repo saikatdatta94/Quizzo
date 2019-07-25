@@ -14,9 +14,15 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/thumb"
+        android:src="@drawable/blank_category_item_thumb"
         app:siShape="@drawable/shape_rounded_rectangle"
         app:siSquare="false"/>
+    <ProgressBar
+        android:id="@+id/vertical_category_image_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_centerVertical="true"/>
 
 
     <TextView

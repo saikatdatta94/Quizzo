@@ -113,7 +113,7 @@ private CircleProgressView circleProgressView;
         TransitionManager.beginDelayedTransition(heading_description);
 
         circleProgressView = findViewById(R.id.circle_progress_normal);
-        circleProgressView.setMax(200);
+        circleProgressView.setMax(200); // TODO: setmax() _________ (currentLevel*100 + 100) _________
 
         levelInsideCircleTextView = findViewById(R.id.level_indicator);
 

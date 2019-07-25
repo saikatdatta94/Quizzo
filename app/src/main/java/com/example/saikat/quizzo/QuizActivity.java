@@ -699,22 +699,22 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
         leaderBoardObject.put(SCORE,scoreToWrite);
 
 //   TODO:     If user ID do not exists in leaderboard  increment the number of users in leaderboard by 1
-        DocumentReference docRef = db.collection("categoryItems").document(categoryId).collection("leaderBoard").document(userId);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-//                        Exists do not write anything
-                    } else {
-//                        TODO: INCREMENT Number of users by 1
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
+//        DocumentReference docRef = db.collection("categoryItems").document(categoryId).collection("leaderBoard").document(userId);
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+////                        Exists do not write anything
+//                    } else {
+////                        TODO: INCREMENT Number of users by 1
+//                    }
+//                } else {
+//                    Log.d(TAG, "get failed with ", task.getException());
+//                }
+//            }
+//        });
 
         db.collection("categoryItems").document(categoryId).collection("leaderBoard").document(userId).
                 set(leaderBoardObject)
@@ -740,6 +740,10 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
 
 //    We have to check level after quit/wrong ans
+//    TODO Modify XP for higher level
+//     e.g: for level 1 xp required to get into next level = 200
+//     e.g: for level 2 xp required to get into next level = 300      ***********calculate (level*100 + 100)**************
+//     e.g: for level 3 xp required to get into next level = 400
     public void checkLevel(){
 
         correctXpStreak++;

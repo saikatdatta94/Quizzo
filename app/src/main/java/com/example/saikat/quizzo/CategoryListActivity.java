@@ -51,9 +51,12 @@ public class CategoryListActivity extends AppCompatActivity {
         setUpRecyclerView();
     }
 
+    
+
     private void setUpRecyclerView() {
         Query query = notebookRef
-                .whereEqualTo("parentCategory",activityHeading);
+                .whereEqualTo("parentCategory",activityHeading)
+                .whereEqualTo("isProduction","true");
 
         FirestoreRecyclerOptions<CategoryItemClass> options = new FirestoreRecyclerOptions.Builder<CategoryItemClass>()
                 .setQuery(query, CategoryItemClass.class)

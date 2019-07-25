@@ -7,6 +7,8 @@ public class CategoryItemClass {
     private int priority;
     private String parentCategory;
     private int followers;
+    private String photoURL;
+    private String isProduction;
 
 //    TODO : ********************Which items a user is following
 
@@ -16,12 +18,15 @@ public class CategoryItemClass {
 
 
 
-    public CategoryItemClass(String title, String description, int priority, String parentCategory, int followers) {
+
+    public CategoryItemClass(String title, String description, int priority, String parentCategory, int followers, String photoURL, String isProduction) {
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.parentCategory = parentCategory;
         this.followers = followers;
+        this.photoURL = photoURL;
+        this.isProduction = isProduction;
     }
 
     public int getFollowers() {
@@ -37,6 +42,13 @@ public class CategoryItemClass {
         return description;
     }
 
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public String getIsProduction() {
+        return isProduction;
+    }
 
     public int getPriority() {
         return priority;
