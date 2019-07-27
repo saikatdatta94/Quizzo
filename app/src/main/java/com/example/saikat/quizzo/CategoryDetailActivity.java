@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 import com.white.progressview.CircleProgressView;
 
 import java.util.HashMap;
@@ -52,6 +55,7 @@ public class CategoryDetailActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference catRef;
+    private ImageView categoryThumbnail;
     private TextView headingView;
     private TextView descriptionView;
     private TextView levelInsideCircleTextView;
@@ -70,6 +74,8 @@ private CircleProgressView circleProgressView;
     private String title=" ";
     private String description=" ";
     private String path=" ";
+    private String thumbnailURL = "";
+    private String color = "";
     private String parentCategory;
 
 
@@ -81,6 +87,7 @@ private CircleProgressView circleProgressView;
 
 //TODO followersTextView tracks number of followers
         followersTextView = findViewById(R.id.followers);
+        categoryThumbnail = findViewById(R.id.category_detail_thumbnail);
 
         followButton = findViewById(R.id.foll_button);
 
@@ -102,10 +109,15 @@ private CircleProgressView circleProgressView;
             title = getIntent().getStringExtra("title");
             description = getIntent().getStringExtra("description");
             parentCategory = getIntent().getStringExtra("parent");
+            thumbnailURL = getIntent().getStringExtra("thumbURL");
+            color = getIntent().getStringExtra("color");
+
         }
 
+        loadThumbnail(thumbnailURL);
 
         final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
+        collapsingToolbarLayout.setContentScrimColor(Color.parseColor(color));// TODO: change COLOR of contentScrim
         collapsingToolbarLayout.setTitle(title);
 
 
@@ -113,7 +125,9 @@ private CircleProgressView circleProgressView;
         TransitionManager.beginDelayedTransition(heading_description);
 
         circleProgressView = findViewById(R.id.circle_progress_normal);
-        circleProgressView.setMax(200); // TODO: setmax() _________ (currentLevel*100 + 100) _________
+//        circleProgressView.setMax(level*100+100); // TODO: setmax() _________ (currentLevel*100 + 100) _________
+
+        Log.i(TAG, "onCreate: Level: "+ level);
 
         levelInsideCircleTextView = findViewById(R.id.level_indicator);
 
@@ -187,6 +201,28 @@ private CircleProgressView circleProgressView;
 
         checkIfFollowing();
 
+    }
+
+
+//Load thumbnail
+    private void loadThumbnail(String thumb) {
+        if (thumb!=""){
+            Picasso.get()
+                    .load(thumb)
+                    .placeholder(R.drawable.blank_category_item_thumb)
+                    .error(R.drawable.blank_category_item_thumb)
+                    .into(categoryThumbnail, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+
+                        }
+                    });
+        }
     }
 
     private void onFollowButtonClicked() {
@@ -291,10 +327,12 @@ private CircleProgressView circleProgressView;
                         followingCategory.put("highScore",0);
                         followingCategory.put("title",title);
                         followingCategory.put("description",description);
-                        followingCategory.put("parent",parentCategory);
+                        followingCategory.put("parentCategory",parentCategory);
                         followingCategory.put("level",1);
                         followingCategory.put("xp",0);
                         followingCategory.put("priority",1);
+                        followingCategory.put("color",color);
+                        followingCategory.put("photoURL",thumbnailURL);
 
 
 
@@ -389,6 +427,12 @@ private CircleProgressView circleProgressView;
 
 
     public void loadAnimatedProgressBar(){
+
+        //Increasing target XP as level is increased TODO: equation (level*100+100)
+        circleProgressView.setMax(200);
+        Log.i(TAG, "After getting from db: Level: "+ level);
+
+
         //     add Animation to circular progressbar
         if (Build.VERSION.SDK_INT >= 24) {
 //             final int xp = 60;

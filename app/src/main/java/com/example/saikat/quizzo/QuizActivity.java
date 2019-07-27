@@ -369,9 +369,11 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
         categoryId = getIntent().getStringExtra("catId");
         parentCategory = getIntent().getStringExtra("parent");
         previousXp = getIntent().getIntExtra("xp",0);
-        level = getIntent().getIntExtra("level",0);
+        level = getIntent().getIntExtra("level",1);
+        Log.i(TAG, "checkLevel After each Q  Level Change Check: Level = "+level );
         questionRef
                 .whereEqualTo("category",categoryName)
+//                .whereEqualTo("level",level)
 //                .orderBy("priority", Query.Direction.DESCENDING)   //TODO : LATER CHANGE IT TO LEVEL
                 .limit(10)
                 .get()
@@ -740,7 +742,7 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
 
 //    We have to check level after quit/wrong ans
-//    TODO Modify XP for higher level
+//    TODO(Plan cancelled) Modify XP for higher level
 //     e.g: for level 1 xp required to get into next level = 200
 //     e.g: for level 2 xp required to get into next level = 300      ***********calculate (level*100 + 100)**************
 //     e.g: for level 3 xp required to get into next level = 400
@@ -758,11 +760,14 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
             previousXp = residualXp;
             gamePlayBonus = 0;
             correctXpStreak = 0;
+// TODO:   ***********************************
+//            TODO XP is more than 200 i.e Level goes up by 1 Show a popup
+//              TODO : LOAD new level Questions
 
         }else {
             residualXp = totalXp;
         }
-        Log.i(TAG, "checkLevel:prevXp: "+previousXp+ " xp: "+xp+" streak: " + correctXpStreak +" totalXp : "+totalXp+" residualXp "+residualXp+" gamePlayBon:" +gamePlayBonus);
+        Log.i(TAG, "checkLevel After each Q    Level"+ level +" levelToIncrement: "+levelToIncrement+" :prevXp: "+previousXp+ " xp: "+xp+" streak: " + correctXpStreak +" totalXp : "+totalXp+" residualXp "+residualXp+" gamePlayBon:" +gamePlayBonus);
     }
 
 //    Write highScore to profile at the end of the game(When the answer is wrong or on Surrender clicked
@@ -780,7 +785,7 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
                           previousXp = residualXp;
                           gamePlayBonus = 0;
 
-                        Log.i(TAG, "checkLevel Ons: correctXpStreak:"+ correctXpStreak+" previousXp "+ previousXp+" gamePlayBonus: "+gamePlayBonus);
+                        Log.i(TAG, "checkLevel Ons: Level: "+level + "correctXpStreak:"+ correctXpStreak+" previousXp "+ previousXp+" gamePlayBonus: "+gamePlayBonus);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override

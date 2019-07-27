@@ -18,15 +18,18 @@ import com.squareup.picasso.Picasso;
 
 public class VerticalCategoryListAdapter extends FirestoreRecyclerAdapter<CategoryItemClass, VerticalCategoryListAdapter.NoteHolder> {
     private OnItemClickListener listener;     //  Global for the listener below
-
+    private String thumbnailPhotoURLString = "";
     public VerticalCategoryListAdapter(@NonNull FirestoreRecyclerOptions<CategoryItemClass> options) {
         super(options);
     }
 
     @Override
     protected void onBindViewHolder(@NonNull final NoteHolder holder, int position, @NonNull CategoryItemClass model) {
+        thumbnailPhotoURLString = model.getPhotoURL();//Putting photoURL into global variable to pass it to the Category detail activity
+
         holder.textViewTitle.setText(model.getTitle());
         holder.textViewDescription.setText(model.getDescription());
+
         Picasso.get()
                 .load(model.getPhotoURL())
                 .placeholder(R.drawable.blank_category_item_thumb)
@@ -34,7 +37,7 @@ public class VerticalCategoryListAdapter extends FirestoreRecyclerAdapter<Catego
                 .into(holder.categoryItemThumbnail, new Callback() {
                     @Override
                     public void onSuccess() {
-                        holder.progressBar.setVisibility(View.GONE);
+//                        holder.progressBar.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -58,7 +61,7 @@ public class VerticalCategoryListAdapter extends FirestoreRecyclerAdapter<Catego
         TextView textViewDescription;
         TextView textViewPriority;
         ImageView categoryItemThumbnail;
-        ProgressBar progressBar;
+//        ProgressBar progressBar;
 
         public NoteHolder(View itemView) {
             super(itemView);
@@ -66,7 +69,7 @@ public class VerticalCategoryListAdapter extends FirestoreRecyclerAdapter<Catego
             textViewTitle = itemView.findViewById(R.id.heading_category_vertical_list);
             textViewDescription = itemView.findViewById(R.id.description_category_vertical_list);
             textViewPriority = itemView.findViewById(R.id.text_view_priority);
-            progressBar = itemView.findViewById(R.id.vertical_category_image_progress);
+//            progressBar = itemView.findViewById(R.id.vertical_category_image_progress);
 
 
 //       TODO     It is better to catch click inside the itemView

@@ -87,7 +87,8 @@ public class HomeFragment extends Fragment {
 
 //      This array Contains color list for Category Items Strip
         View[] categoryViewList = {categoryScience,category2,category3,category4,category5};
-        String[] categoryName = {"cat1","cat2","cat3","cat4","cat5"};
+//        String[] categoryName = {"cat1","cat2","cat3","cat4","cat5"};   TODO: DELETE THIS LINE
+        String[] categoryName = {"General","cat2","cat3","cat4","cat5"};
 
         ColorStateList[] categoryTintList = {
                 getActivity().getResources().getColorStateList(R.color.color2),
@@ -126,6 +127,8 @@ public class HomeFragment extends Fragment {
 
                 String id = documentSnapshot.getReference().getId();
                 String path = "categoryItems/"+id;
+                intent.putExtra("thumbURL",following.getPhotoURL());
+                intent.putExtra("color",following.getColor());
                 intent.putExtra("path",path);
                 intent.putExtra("title",following.getTitle());
                 intent.putExtra("description",following.getDescription());

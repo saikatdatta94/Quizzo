@@ -4,8 +4,10 @@
     <color name="colorPrimaryDark">#3e416d</color>
     <color name="colorAccent">#EA4335</color>
     <color name="lightBlueBack">#f0f6ff</color>
+    <color name="lighterBlueBack">#fafcff</color>
     <!--<color name="lightBlueBack">#e8ecff</color>-->
     <color name="lightBlueInactive">#C6D6EE</color>
+    <color name="lessLightBackground">#B5C1D8</color>
     <color name="inactiveGrey">#a8abaf</color>
     <color name="radiantCyan">#65e6f2</color>
 

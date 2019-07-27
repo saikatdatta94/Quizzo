@@ -9,6 +9,8 @@ public class FollowingCategoryItemClass {
     private String parent;
     private int xp;
     private int level;
+    private String photoURL;
+    private String color;
 
 //    TODO : ********************Which items a user is following
 
@@ -22,7 +24,7 @@ public class FollowingCategoryItemClass {
     }
 
     public FollowingCategoryItemClass(String title, String description, int priority, String isFollowing,
-                                      int highScore, String parent,int level,int xp) {
+                                      int highScore, String parent,int level,int xp,String photoURL,String color) {
         this.title = title;
         this.description = description;
         this.priority = priority;
@@ -31,9 +33,17 @@ public class FollowingCategoryItemClass {
         this.parent = parent;
         this.level = level;
         this.xp = xp;
+        this.photoURL = photoURL;
+        this.color = color;
     }
 
+    public String getPhotoURL() {
+        return photoURL;
+    }
 
+    public String getColor() {
+        return color;
+    }
 
     public String getTitle() {
         return title;

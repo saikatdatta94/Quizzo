@@ -82,6 +82,8 @@ public class CategoryListActivity extends AppCompatActivity {
                 String path = documentSnapshot.getReference().getPath();
 
                 Log.i(TAG, "onItemClick: "+path);
+                intent.putExtra("thumbURL",following.getPhotoURL());
+                intent.putExtra("color",following.getColor());
                 intent.putExtra("path",path);
                 intent.putExtra("title",following.getTitle());
                 intent.putExtra("description",following.getDescription());
