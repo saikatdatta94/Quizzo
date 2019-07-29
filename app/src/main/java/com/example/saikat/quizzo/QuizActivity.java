@@ -3,9 +3,12 @@ package com.example.saikat.quizzo;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -57,6 +60,11 @@ import javax.annotation.Nullable;
 
 
 public class QuizActivity extends AppCompatActivity  implements BottomSnackbarClass.BottomSheetListener{
+
+
+
+    private Dialog levelUpDialog;
+    private boolean isAnyPopUpOn = false;
 
 //    leader board Database constants
     private static final String USER_NAME = "userName";
@@ -166,6 +174,14 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         Log.i(TAG, "onCreate: ");
+
+
+
+//       Level Up dialog
+
+        levelUpDialog = new Dialog(this);
+
+
 
 //        Power Up views
         correctAnsPowerUp = findViewById(R.id.right_answer_power_up);
@@ -319,14 +335,19 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
 
         setCorrectOptionColor();
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Do something after 100ms
-                showBottomSheetDialog();
-            }
-        }, 2000);
+//        TODO : do not popup for next question when the level up or any other alert popup is there
+
+        if (!isAnyPopUpOn){
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //Do something after 100ms
+                    showBottomSheetDialog();
+                }
+            }, 2000);
+        }
+
 
 
 
@@ -762,7 +783,11 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
             correctXpStreak = 0;
 // TODO:   ***********************************
 //            TODO XP is more than 200 i.e Level goes up by 1 Show a popup
+
+            showLevelUpDialog(level);
+
 //              TODO : LOAD new level Questions
+
 
         }else {
             residualXp = totalXp;
@@ -770,7 +795,9 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
         Log.i(TAG, "checkLevel After each Q    Level"+ level +" levelToIncrement: "+levelToIncrement+" :prevXp: "+previousXp+ " xp: "+xp+" streak: " + correctXpStreak +" totalXp : "+totalXp+" residualXp "+residualXp+" gamePlayBon:" +gamePlayBonus);
     }
 
-//    Write highScore to profile at the end of the game(When the answer is wrong or on Surrender clicked
+
+
+    //    Write highScore to profile at the end of the game(When the answer is wrong or on Surrender clicked
     public void writeHighScoreToProfile(){
         final String followingItemsPath = "users/"+userId+"/Notebook/"+categoryId;
         DocumentReference followingCatDocRef = db.document(followingItemsPath);
@@ -992,7 +1019,11 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                showBottomSheetDialog();
+//              don't  Show bottomSheetDialog if some popup is there
+if (!isAnyPopUpOn)  {
+    showBottomSheetDialog();
+}
+
             }
         },2000);
     }
@@ -1060,5 +1091,31 @@ public class QuizActivity extends AppCompatActivity  implements BottomSnackbarCl
     public void b4Clicked(View view) {
         Log.i(TAG, "b4Clicked: b4 clicked");
         passButtonOfCorrectAnswer(b4,4);
+    }
+
+
+    private void showLevelUpDialog(int level) {
+//        TODO set new level to Dialog text view
+         levelUpDialog.setContentView(R.layout.layout_level_up_dialog);
+    levelUpDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    levelUpDialog.show();
+    isAnyPopUpOn = true;
+    levelUpDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        @Override
+        public void onDismiss(DialogInterface dialog) {
+            Log.i(TAG, "onDismiss: Dismissed");
+            isAnyPopUpOn = false;
+
+//            User dismissed the popup now show next question option
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //Do something after 100ms
+                    showBottomSheetDialog();
+                }
+            },2000);
+        }
+    });
     }
 }
